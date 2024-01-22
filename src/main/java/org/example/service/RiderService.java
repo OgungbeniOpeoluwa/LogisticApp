@@ -1,2 +1,4 @@
-package org.example.service;public class RiderService {
+package org.example.service;
+
+public interface RiderService  {
 }

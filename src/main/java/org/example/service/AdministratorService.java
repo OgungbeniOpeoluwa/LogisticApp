@@ -1,2 +1,4 @@
-package org.example.service;public class AdministratorService {
+package org.example.service;
+
+public interface AdministratorService {
 }

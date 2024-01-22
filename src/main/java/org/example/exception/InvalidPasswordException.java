@@ -1,7 +1,7 @@
 package org.example.exception;
 
-public class InvalidDetailsFormat extends LogisticException{
-    public InvalidDetailsFormat(String message) {
+public class InvalidPasswordException extends LogisticException{
+    public InvalidPasswordException(String message) {
         super(message);
     }
 }

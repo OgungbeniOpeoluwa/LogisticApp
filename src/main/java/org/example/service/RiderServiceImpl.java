@@ -1,2 +1,7 @@
-package org.example.service;public class RiderServiceImpl {
+package org.example.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class RiderServiceImpl  implements  RiderService{
 }

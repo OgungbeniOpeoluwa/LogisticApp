@@ -1,2 +1,5 @@
-package org.example.util;public class VerifyRequest {
+package org.example.util;
+
+public class VerifyRequest {
+
 }

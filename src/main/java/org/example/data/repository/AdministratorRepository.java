@@ -1,2 +1,7 @@
-package org.example.data.repository;public interface AdministratorRepository {
+package org.example.data.repository;
+
+import org.example.data.model.Administrator;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AdministratorRepository extends JpaRepository<Administrator,Long> {
 }
