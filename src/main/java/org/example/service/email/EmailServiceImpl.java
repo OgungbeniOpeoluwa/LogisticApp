@@ -1,7 +1,8 @@
-package org.example.service;
+package org.example.service.email;
 
-import org.example.dto.EmailRequest;
+import org.example.dto.request.EmailRequest;
 import org.example.dto.EmailResponse;
+import org.example.service.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -9,7 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmailServiceImpl implements EmailService{
+public class EmailServiceImpl implements EmailService {
     @Autowired
     JavaMailSender javaMailSender;
     @Value("tifeagnes86@gmail.com")

@@ -7,11 +7,17 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@DiscriminatorValue("Customers")
-public class Customers extends User{
+public class Customers{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
+    private String phoneNumber;
+    private String password;
+    private String address;
+    private String email;
+    private boolean isLoginStatus;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name ="Wallet_id")
+    private Wallet wallet;
 }

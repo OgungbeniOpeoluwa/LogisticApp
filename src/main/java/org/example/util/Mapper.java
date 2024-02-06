@@ -1,8 +1,15 @@
 package org.example.util;
 
 import org.example.data.model.Customers;
-import org.example.dto.EmailRequest;
-import org.example.dto.RegisterRequest;
+import org.example.data.model.Delivery;
+import org.example.data.model.LogisticCompany;
+import org.example.data.model.Vechicle;
+import org.example.dto.BookDeliveryRequest;
+import org.example.dto.CheckPriceQuotationRequest;
+import org.example.dto.request.EmailRequest;
+import org.example.dto.request.CustomersRegisterRequest;
+import org.example.dto.request.LogisticRegisterRequest;
+import org.example.dto.request.RegisterVehicleRequest;
 import org.example.exception.InvalidEmailException;
 import org.example.exception.InvalidPasswordException;
 import org.example.exception.InvalidPhoneNumberException;
@@ -10,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class Mapper {
 
-    public static Customers MapRegister(RegisterRequest request){
+    public static Customers MapRegister(CustomersRegisterRequest request){
         if(!Verification.verifyPassword(request.getPassword()))throw new InvalidPasswordException("Weak password");
         if(!Verification.verifyEmail(request.getEmail()))throw new InvalidEmailException("Email not Valid");
         if(!Verification.verifyPhoneNumber(request.getPhoneNumber()))throw new InvalidPhoneNumberException("Enter a valid number");
@@ -19,7 +26,7 @@ public class Mapper {
         customers.setAddress(request.getAddress());
         customers.setEmail(request.getEmail());
         customers.setPhoneNumber(request.getPhoneNumber());
-        String encodePassword = encryptPassword(request);
+        String encodePassword = encryptPassword(request.getPassword());
         customers.setPassword(encodePassword);
         return customers;
 
@@ -30,9 +37,62 @@ public class Mapper {
         return emailRequest;
     }
 
-    private static String encryptPassword(RegisterRequest registerRequest) {
+    private static String encryptPassword(String password) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String encodePassword = bCryptPasswordEncoder.encode(registerRequest.getPassword());
+        String encodePassword = bCryptPasswordEncoder.encode(password);
         return encodePassword;
+    }
+
+
+    public static CheckPriceQuotationRequest mapQuotation(BookDeliveryRequest bookDeliveryRequest) {
+        CheckPriceQuotationRequest priceQuotationRequest = new CheckPriceQuotationRequest();
+        priceQuotationRequest.setDeliveryStreet(bookDeliveryRequest.getReceiverStreet());
+        priceQuotationRequest.setDeliveryCity(bookDeliveryRequest.getReceiverCity());
+        priceQuotationRequest.setDeliveryState(bookDeliveryRequest.getReceiverState());
+
+        priceQuotationRequest.setPickUpCity(bookDeliveryRequest.getPickUpCity());
+        priceQuotationRequest.setPickUpState(bookDeliveryRequest.getPickUpState());
+        priceQuotationRequest.setPickUpStreet(bookDeliveryRequest.getPickUpStreet());
+
+        priceQuotationRequest.setCustomerEmail(bookDeliveryRequest.getCustomerEmail());
+        priceQuotationRequest.setTypeOfVehicle(bookDeliveryRequest.getTypeOfVechicle());
+        priceQuotationRequest.setWeightOfPackage(bookDeliveryRequest.getPackageWeight());
+        return priceQuotationRequest;
+    }
+    public static Delivery mapDelivery(BookDeliveryRequest bookDeliveryRequest){
+        Delivery delivery = new Delivery();
+        String pickUpAddress = bookDeliveryRequest.getPickUpStreet() +" "+ bookDeliveryRequest.getPickUpCity() + " "+ bookDeliveryRequest.getPickUpState();
+        String deliveryAddress = bookDeliveryRequest.getReceiverStreet() +" "+bookDeliveryRequest.getReceiverCity()+ " "+bookDeliveryRequest.getReceiverState();
+        delivery.setPickUpAddress(pickUpAddress);
+        delivery.setPickUpPhoneNumber(bookDeliveryRequest.getPickUpPhoneNumber());
+        delivery.setNameOfVechicle(bookDeliveryRequest.getTypeOfVechicle());
+        delivery.setRecieverAddress(deliveryAddress);
+        delivery.setRecieverPhoneNumber(bookDeliveryRequest.getReceiverPhoneNumber());
+        delivery.setLogisticComapny(bookDeliveryRequest.getLogisticCompanyEmail());
+        delivery.setRecieverEmail(bookDeliveryRequest.getReceiverEmail());
+        delivery.setRecieverName(bookDeliveryRequest.getReceiverName());
+        delivery.setCustomerEmail(bookDeliveryRequest.getCustomerEmail());
+        delivery.setTypeOfPackage(bookDeliveryRequest.getTypeOfPackage());
+        delivery.setPackageWeight(bookDeliveryRequest.getPackageWeight());
+        return delivery;
+    }
+
+    public static LogisticCompany mapCompany(LogisticRegisterRequest logisticRegisterRequest){
+        LogisticCompany logisticCompany = new LogisticCompany();
+        logisticCompany.setCompanyName(logisticRegisterRequest.getCompanyName());
+        String password = encryptPassword(logisticRegisterRequest.getPassword());
+        logisticCompany.setPassword(password);
+        logisticCompany.setAddress(logisticRegisterRequest.getAddress());
+        logisticCompany.setEmail(logisticRegisterRequest.getEmail());
+        logisticCompany.setCacNumber(logisticRegisterRequest.getCacNumber());
+        return logisticCompany;
+    }
+    public static Vechicle mapVechicle(RegisterVehicleRequest request){
+        Vechicle vechicle = new Vechicle();
+        vechicle.setVechicleType(request.getVehicleType());
+        vechicle.setDriverLincenceNumber(request.getDriverLicenceNumber());
+        vechicle.setVechicleWeightCapacity(request.getVehicleWeightCapacity());
+        vechicle.setPlateNumber(request.getPlateNumber());
+        return vechicle;
     }
 }
