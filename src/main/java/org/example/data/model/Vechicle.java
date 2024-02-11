@@ -9,8 +9,8 @@ public class Vechicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String plateNumber;
     private String vechicleType;
-    private String vechicleWeightCapacity;
-    private String driverLincenceNumber;
+    private int limitPerDay = 0;
+    @ManyToOne(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
+    private LogisticCompany company;
 }

@@ -3,17 +3,13 @@ package org.example.service.customers;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
-import org.example.data.model.Customers;
-import org.example.data.model.TypeOfVehicle;
-import org.example.data.model.Wallet;
+import org.example.data.model.*;
 import org.example.data.repository.CustomerRepository;
 import org.example.dto.CheckPriceQuotationRequest;
 import org.example.dto.BookDeliveryRequest;
-import org.example.dto.request.DepositMoneyRequest;
-import org.example.dto.request.EmailRequest;
-import org.example.dto.request.LoginRequest;
-import org.example.dto.request.CustomersRegisterRequest;
+import org.example.dto.request.*;
 import org.example.dto.RegisterResponse;
+import org.example.dto.response.BookingResponse;
 import org.example.dto.response.LongitudeLatitudeResponse;
 import org.example.exception.*;
 import org.example.service.email.EmailService;
@@ -22,12 +18,13 @@ import org.example.service.delivery.DeliveryService;
 import org.example.service.logistic.LogisticsService;
 import org.example.service.wallet.WalletService;
 import org.example.util.Mapper;
-import org.example.util.VerifyRequest;
+import org.example.util.DistanceCalculation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -47,6 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
     LogisticsService logisticsService;
 
     private final Validator validator;
+    private final int appPercent  = 20;
 
     public CustomerServiceImpl(Validator validator) {
         this.validator = validator;
@@ -67,18 +65,14 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.save(customer);
 
 
-        RegisterResponse response = new RegisterResponse("Registration completed");
-        EmailRequest emailRequest = Mapper.emailRequest(registerRequest.getEmail(),
-                "Congratulation "+registerRequest.getName()+" you have successfully register",
-                "Registration Complete");
-        emailService.send(emailRequest);
+      RegisterResponse response = new RegisterResponse("Registration completed");
+//        EmailRequest emailRequest = Mapper.emailRequest(registerRequest.getEmail(),
+//                "Congratulation "+registerRequest.getName()+" you have successfully register",
+//                "Registration Complete");
+//        emailService.send(emailRequest);
         return response;
     }
 
-    @Override
-    public Customers customer(String email) {
-        return null;
-    }
 
     private boolean userExist(String email){
         Customers customers = customerRepository.findByEmail(email);
@@ -104,7 +98,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void bookDelivery(BookDeliveryRequest bookDeliveryRequest) {
+    public String bookDelivery(BookDeliveryRequest bookDeliveryRequest) {
         Set<ConstraintViolation<BookDeliveryRequest>> violations = validator.validate(bookDeliveryRequest);
         if(!violations.isEmpty())throw new InputException("invalid input");
         userExist(bookDeliveryRequest.getCustomerEmail());
@@ -113,7 +107,10 @@ public class CustomerServiceImpl implements CustomerService {
         CheckPriceQuotationRequest quotationRequest = Mapper.mapQuotation(bookDeliveryRequest);
         double price = getQuote(quotationRequest);
         if(price > Double.parseDouble(wallet) )throw new InsufficientBalanceException("insufficient wallet balance");
-            String bookingId = deliveryService.bookDelivery(bookDeliveryRequest);
+        LogisticCompany logisticCompany = logisticsService.checkLogisticCompany(bookDeliveryRequest.getLogisticCompanyEmail(),bookDeliveryRequest.getTypeOfVechicle());
+        BookingResponse booking = deliveryService.bookDelivery(bookDeliveryRequest,price);
+        //administratorService.sendBookingEmail(booking,logisticCompany.getEmail());
+        return booking.getBookingId();
 
     }
 
@@ -125,9 +122,9 @@ public class CustomerServiceImpl implements CustomerService {
         if(!isLocked(address.getCustomerEmail()))throw new AppLockedException("Kindly login");
         String pickupAddress =address.getPickUpStreet()+","+" "+address.getPickUpCity()+","+" "+address.getPickUpState();
         String deliveryAddress = address.getDeliveryStreet()+","+" "+address.getDeliveryCity()+","+" "+address.getDeliveryState();
-        LongitudeLatitudeResponse pickUpAddress = VerifyRequest.location(pickupAddress);
-        LongitudeLatitudeResponse deliveryAddresses = VerifyRequest.location(deliveryAddress);
-        double kilometer = VerifyRequest.distance(pickUpAddress.getLatitude(),pickUpAddress.getLongitude(),+
+        LongitudeLatitudeResponse pickUpAddress = DistanceCalculation.location(pickupAddress);
+        LongitudeLatitudeResponse deliveryAddresses = DistanceCalculation.location(deliveryAddress);
+        double kilometer = DistanceCalculation.distance(pickUpAddress.getLatitude(),pickUpAddress.getLongitude(),+
                 deliveryAddresses.getLatitude(),deliveryAddresses.getLongitude());
         String format = String.format("%.1f",calculatePrice(address,kilometer));
         return Double.parseDouble(format);
@@ -151,6 +148,67 @@ public class CustomerServiceImpl implements CustomerService {
         if(!isLocked(email))throw new AppLockedException("Kindly login");
         return walletService.checkBalance(email);
     }
+
+    @Override
+    public List<LogisticCompany> searchForAvailableLogistic(String email) {
+        if(!userExist(email))throw new UserExistException(email +" user doesn't exist");
+       if(!isLocked(email))throw new InvalidLoginDetail("Kindly login");
+       List<LogisticCompany> availableLogisticCompany = logisticsService.findAvailableLogisticCompany();
+       if(availableLogisticCompany.isEmpty())throw new NoAvailableException("No Logistic company Available");
+        return availableLogisticCompany;
+    }
+
+    @Override
+    public void cancelBookedDelivery(CustomerCancelBookingRequest cancelBookingRequest) {
+        if(!userExist(cancelBookingRequest.getCustomerEmail()))throw new UserExistException(cancelBookingRequest.getCustomerEmail() +" user doesn't exist");
+        if(!isLocked(cancelBookingRequest.getCustomerEmail()))throw new InvalidLoginDetail("Kindly login");
+        Delivery delivery = deliveryService.cancelDelivery(cancelBookingRequest.getBookingId(),cancelBookingRequest.getCustomerEmail());
+        if(delivery.getCompany() !=null) {
+            LogisticCompany logisticCompany = logisticsService.resetLogistic(cancelBookingRequest.getCompanyName(), cancelBookingRequest.getBookingId(),delivery.getNameOfVechicle());
+            administratorService.cancelBookingEmail(logisticCompany.getEmail(),cancelBookingRequest.getBookingId(),cancelBookingRequest.getReasonOnWhyBookingWasCancelled(),
+                    cancelBookingRequest.getCustomerEmail(), delivery.getDeliveryPrice());
+        }
+        else walletService.refundBalance(cancelBookingRequest.getCustomerEmail(), delivery.getDeliveryPrice());
+
+    }
+
+    @Override
+    public Delivery findDeliveryById(FindABookedDeliveryRequest findABookedDeliveryRequest) {
+        if(!userExist(findABookedDeliveryRequest.getCustomerEmail()))throw new UserExistException(findABookedDeliveryRequest.getCustomerEmail() +" user doesn't exist");
+        if(!isLocked(findABookedDeliveryRequest.getCustomerEmail()))throw new InvalidLoginDetail("Kindly login");
+        Delivery delivery = deliveryService.searchByDeliveryId(findABookedDeliveryRequest.getBookingId(), findABookedDeliveryRequest.getCustomerEmail());
+        if(delivery == null)throw new DeliveryException("booking id doesn't exist");
+        return delivery;
+    }
+
+    @Override
+    public String trackOrder(TrackOrderRequest trackOrderRequest) {
+        if(!userExist(trackOrderRequest.getEmail()))throw new UserExistException(trackOrderRequest.getEmail() +" user doesn't exist");
+        if(!isLocked(trackOrderRequest.getEmail()))throw new InvalidLoginDetail("Kindly login");
+        String status = deliveryService.getOrderStatus(trackOrderRequest.getBookingId(),trackOrderRequest.getEmail());
+        if(status == null)throw new DeliveryException("Order doesn't exist");
+        return status;
+    }
+
+    @Override
+    public List<Delivery> searchByDeliveryStatus(FindDeliveryByStatus findDeliveryByStatus) {
+        if(!userExist(findDeliveryByStatus.getEmail()))throw new UserExistException(findDeliveryByStatus.getEmail() +" user doesn't exist");
+        if(!isLocked(findDeliveryByStatus.getEmail()))throw new InvalidLoginDetail("Kindly login");
+        List<Delivery> deliveries = deliveryService.searchDeliveryByStatus(findDeliveryByStatus.getDeliveryStatus(),findDeliveryByStatus.getEmail());
+        if(deliveries.isEmpty())throw new DeliveryException("No delivery with the status");
+        return deliveries;
+    }
+
+    @Override
+    public List<Delivery> findAllDeliveries(String email) {
+        if(!userExist(email))throw new UserExistException(email +" user doesn't exist");
+        if(!isLocked(email))throw new InvalidLoginDetail("Kindly login");
+        List<Delivery> deliveries = deliveryService.findAllCustomerDelivery(email);
+        if(deliveries.isEmpty())throw new NoDeliveryException("No delivery History");
+        return deliveries;
+    }
+
+
 
     private static double calculatePrice(CheckPriceQuotationRequest address, double kilometer) {
         double format = Double.parseDouble(String.format("%.1f",kilometer));

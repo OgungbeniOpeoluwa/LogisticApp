@@ -13,7 +13,10 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String customerName;
-    private LocalDateTime localDateTime;
+    private String customerEmail;
+    private String bookingId;
+    private LocalDateTime localDateTitme = LocalDateTime.now();
+    @ManyToOne(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
+    private LogisticCompany company;
     private BigDecimal amount;
 }

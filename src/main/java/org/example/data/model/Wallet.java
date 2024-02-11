@@ -15,5 +15,6 @@ public class Wallet {
     private BigDecimal balance = BigDecimal.valueOf(0.00);
     @OneToOne(mappedBy = "wallet")
     private  Customers customers;
+    @Enumerated
     private WalletStatus walletStatus = WalletStatus.AVAILABLE;
 }

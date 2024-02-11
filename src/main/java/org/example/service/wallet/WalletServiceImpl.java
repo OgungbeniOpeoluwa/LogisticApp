@@ -5,7 +5,6 @@ import org.example.data.model.Wallet;
 import org.example.data.model.WalletStatus;
 import org.example.data.repository.WalletRepository;
 import org.example.exception.WalletException;
-import org.example.service.admin.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +15,7 @@ import java.util.Optional;
 public class WalletServiceImpl implements WalletService {
     @Autowired
     WalletRepository walletRepository;
+    private final int appRate=20;
 
 
     @Override
@@ -53,6 +53,25 @@ public class WalletServiceImpl implements WalletService {
         Optional<Wallet> wallet = walletRepository.findByEmail(email);
         if(wallet.isEmpty())throw new WalletException("Wallet doesn't exist");
         wallet.get().setWalletStatus(WalletStatus.AVAILABLE);
+        walletRepository.save(wallet.get());
+    }
+
+    @Override
+    public BigDecimal deductDeliveryFee(String email,double deliveryPrice) {
+        Optional<Wallet> wallet = walletRepository.findByEmail(email);
+        if(wallet.isEmpty())throw new WalletException("Wallet doesn't exist");
+        double fee = wallet.get().getBalance().doubleValue()  - deliveryPrice;
+        wallet.get().setBalance(BigDecimal.valueOf(fee));
+        walletRepository.save(wallet.get());
+        return  wallet.get().getBalance();
+    }
+
+    @Override
+    public void refundBalance(String customerEmail, double price) {
+        Optional<Wallet> wallet = walletRepository.findByEmail(customerEmail);
+        if(wallet.isEmpty())throw new WalletException("Wallet doesn't exist");
+        double fee = wallet.get().getBalance().doubleValue()  + price;
+        wallet.get().setBalance(BigDecimal.valueOf(fee));
         walletRepository.save(wallet.get());
     }
 }

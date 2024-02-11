@@ -14,23 +14,11 @@ public class LogisticCompany{
     @Column(name = "company_id")
     private Long id;
     private  String companyName;
-    private String phoneNumber;
+    private String  socialMediaLink;
     private String password;
     private String address;
     private boolean isLoginStatus;
     private String email;
-    private int limitPerDay;
     private String cacNumber;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "fk_company_id",referencedColumnName = "company_id")
-    private List<Transaction> transactions = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "fk_company_id",referencedColumnName = "company_id")
-    private List <Delivery> deliveries = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "fk_company_id",referencedColumnName = "company_id")
-    private List<Vechicle> vechicles = new ArrayList<>();
 }

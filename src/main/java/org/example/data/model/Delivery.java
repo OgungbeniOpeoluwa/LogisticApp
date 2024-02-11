@@ -1,5 +1,6 @@
 package org.example.data.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,16 +19,28 @@ public class Delivery {
     private String pickUpAddress;
     private String pickUpUserName;
     private String pickUpPhoneNumber;
+
     private String typeOfPackage;
 
     private String nameOfVechicle;
 
     private String customerEmail;
 
-    private String logisticComapny;
+    private String logisticCompany;
+
+    private double companyAmount;
+
+    private double deliveryPrice;
 
     private int packageWeight;
+
     private String bookingId;
+
+    @Enumerated
+    private DeliveryStatus deliveryStatus = DeliveryStatus.PENDING;
+
+    @ManyToOne(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
+    private  LogisticCompany company;
 
 
 }

@@ -68,7 +68,7 @@ public class Mapper {
         delivery.setNameOfVechicle(bookDeliveryRequest.getTypeOfVechicle());
         delivery.setRecieverAddress(deliveryAddress);
         delivery.setRecieverPhoneNumber(bookDeliveryRequest.getReceiverPhoneNumber());
-        delivery.setLogisticComapny(bookDeliveryRequest.getLogisticCompanyEmail());
+        delivery.setLogisticCompany(bookDeliveryRequest.getLogisticCompanyEmail());
         delivery.setRecieverEmail(bookDeliveryRequest.getReceiverEmail());
         delivery.setRecieverName(bookDeliveryRequest.getReceiverName());
         delivery.setCustomerEmail(bookDeliveryRequest.getCustomerEmail());
@@ -90,9 +90,6 @@ public class Mapper {
     public static Vechicle mapVechicle(RegisterVehicleRequest request){
         Vechicle vechicle = new Vechicle();
         vechicle.setVechicleType(request.getVehicleType());
-        vechicle.setDriverLincenceNumber(request.getDriverLicenceNumber());
-        vechicle.setVechicleWeightCapacity(request.getVehicleWeightCapacity());
-        vechicle.setPlateNumber(request.getPlateNumber());
         return vechicle;
     }
 }

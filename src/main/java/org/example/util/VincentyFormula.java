@@ -4,9 +4,9 @@ import org.example.dto.response.LongitudeLatitudeResponse;
 
 public class VincentyFormula {
     public static void main(String[] args) {
-        LongitudeLatitudeResponse response =VerifyRequest.location("New York,United state of America");
+        LongitudeLatitudeResponse response = DistanceCalculation.location("New York,United state of America");
         System.out.println(response.getLatitude()+ "" +response.getLongitude());
-        LongitudeLatitudeResponse response2 =VerifyRequest.location("Los Angeles,United state of America");
+        LongitudeLatitudeResponse response2 = DistanceCalculation.location("Los Angeles,United state of America");
         System.out.println(response2);
         VincentyFormula vincentyFormula = new VincentyFormula();
         double result = vincentyFormula.calculateDistance(response.getLatitude(), response.getLongitude(), response2.getLatitude(), response2.getLongitude());

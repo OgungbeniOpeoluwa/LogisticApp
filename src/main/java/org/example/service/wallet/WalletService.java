@@ -12,4 +12,8 @@ public interface WalletService {
     Wallet depositMoney(double amount, String email);
 
     void updateWallet(String email);
+
+    BigDecimal deductDeliveryFee(String customerEmail,double deliveryPrice);
+
+    void refundBalance(String customerEmail, double price);
 }
