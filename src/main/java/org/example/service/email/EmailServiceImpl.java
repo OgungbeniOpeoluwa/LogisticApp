@@ -1,8 +1,7 @@
 package org.example.service.email;
 
 import org.example.dto.request.EmailRequest;
-import org.example.dto.EmailResponse;
-import org.example.service.email.EmailService;
+import org.example.dto.response.EmailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;

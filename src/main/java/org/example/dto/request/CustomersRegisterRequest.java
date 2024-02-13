@@ -12,7 +12,5 @@ public class CustomersRegisterRequest {
     @NotNull
     private String password;
     @NotNull
-    private String address;
-    @NotNull
     private String email;
 }

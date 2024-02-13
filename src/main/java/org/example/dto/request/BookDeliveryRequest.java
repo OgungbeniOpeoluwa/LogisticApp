@@ -1,4 +1,4 @@
-package org.example.dto;
+package org.example.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -19,8 +19,11 @@ public class BookDeliveryRequest {
     private String receiverEmail;
 
     private String pickUpState;
+
     private String pickUpCity;
+
     private String pickUpStreet;
+
     private String pickUpName;
 
     private String pickUpPhoneNumber;

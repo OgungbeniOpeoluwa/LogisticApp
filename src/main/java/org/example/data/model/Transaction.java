@@ -15,7 +15,7 @@ public class Transaction {
     private Long id;
     private String customerEmail;
     private String bookingId;
-    private LocalDateTime localDateTitme = LocalDateTime.now();
+    private LocalDateTime localDateTime = LocalDateTime.now();
     @ManyToOne(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
     private LogisticCompany company;
     private BigDecimal amount;

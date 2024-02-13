@@ -1,12 +1,11 @@
 package org.example.service.customers;
 
-import org.example.data.model.Customers;
 import org.example.data.model.Delivery;
 import org.example.data.model.LogisticCompany;
-import org.example.dto.CheckPriceQuotationRequest;
-import org.example.dto.BookDeliveryRequest;
+import org.example.dto.request.CheckPriceQuotationRequest;
+import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.*;
-import org.example.dto.RegisterResponse;
+import org.example.dto.response.RegisterResponse;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -37,4 +36,5 @@ public interface CustomerService {
     List<Delivery> findAllDeliveries(String email);
 
 
+    void updateProfile(UpdateProfileRequest updateProfileRequest);
 }

@@ -3,8 +3,8 @@ package org.example.service;
 import jakarta.transaction.Transactional;
 import org.example.data.model.*;
 import org.example.data.repository.*;
-import org.example.dto.CheckPriceQuotationRequest;
-import org.example.dto.BookDeliveryRequest;
+import org.example.dto.request.CheckPriceQuotationRequest;
+import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.*;
 import org.example.exception.*;
 import org.example.service.admin.AdministratorService;
@@ -65,7 +65,7 @@ class CustomerServiceImplTest {
         customersRegisterRequest.setEmail("opeoluwaagnes@gmail.com");
         customersRegisterRequest.setPassword("Opemip@123");
         customersRegisterRequest.setPhoneNumber("07066221008");
-        customersRegisterRequest.setAddress("10 yaba lagos");
+//        customersRegisterRequest.setAddress("10 yaba lagos");
 
     }
 
@@ -354,7 +354,23 @@ class CustomerServiceImplTest {
 
 
     }
+    @Test
+    public void testThatCustomerUpdateUpdateTheirNameFromOpeoluwaToShayo(){
+        customerService.register(customersRegisterRequest);
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail(customersRegisterRequest.getEmail());
+        loginRequest.setPassword(customersRegisterRequest.getPassword());
+        customerService.login(loginRequest);
 
+        UpdateProfileRequest updateProfileRequest = new UpdateProfileRequest();
+        updateProfileRequest.setName("Shayo");
+        updateProfileRequest.setEmail(customersRegisterRequest.getEmail());
+        customerService.updateProfile(updateProfileRequest);
+
+        assertEquals("shayo",customerRepository.findByEmail(customersRegisterRequest.getEmail()));
+
+
+    }
 
     private static  BookDeliveryRequest bookDelivery() {
         BookDeliveryRequest bookDeliveryRequest = new BookDeliveryRequest();

@@ -2,7 +2,7 @@ package org.example.service.delivery;
 
 import org.example.data.model.Delivery;
 import org.example.data.model.LogisticCompany;
-import org.example.dto.BookDeliveryRequest;
+import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.AcceptBookingRequest;
 import org.example.dto.response.BookingResponse;
 

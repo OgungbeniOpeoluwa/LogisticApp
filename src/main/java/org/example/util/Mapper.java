@@ -4,12 +4,9 @@ import org.example.data.model.Customers;
 import org.example.data.model.Delivery;
 import org.example.data.model.LogisticCompany;
 import org.example.data.model.Vechicle;
-import org.example.dto.BookDeliveryRequest;
-import org.example.dto.CheckPriceQuotationRequest;
-import org.example.dto.request.EmailRequest;
-import org.example.dto.request.CustomersRegisterRequest;
-import org.example.dto.request.LogisticRegisterRequest;
-import org.example.dto.request.RegisterVehicleRequest;
+import org.example.dto.request.BookDeliveryRequest;
+import org.example.dto.request.CheckPriceQuotationRequest;
+import org.example.dto.request.*;
 import org.example.exception.InvalidEmailException;
 import org.example.exception.InvalidPasswordException;
 import org.example.exception.InvalidPhoneNumberException;
@@ -23,7 +20,6 @@ public class Mapper {
         if(!Verification.verifyPhoneNumber(request.getPhoneNumber()))throw new InvalidPhoneNumberException("Enter a valid number");
         Customers customers = new Customers();
         customers.setName(request.getName());
-        customers.setAddress(request.getAddress());
         customers.setEmail(request.getEmail());
         customers.setPhoneNumber(request.getPhoneNumber());
         String encodePassword = encryptPassword(request.getPassword());
@@ -92,4 +88,6 @@ public class Mapper {
         vechicle.setVechicleType(request.getVehicleType());
         return vechicle;
     }
+
+
 }

@@ -5,10 +5,10 @@ import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.example.data.model.*;
 import org.example.data.repository.CustomerRepository;
-import org.example.dto.CheckPriceQuotationRequest;
-import org.example.dto.BookDeliveryRequest;
+import org.example.dto.request.CheckPriceQuotationRequest;
+import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.*;
-import org.example.dto.RegisterResponse;
+import org.example.dto.response.RegisterResponse;
 import org.example.dto.response.BookingResponse;
 import org.example.dto.response.LongitudeLatitudeResponse;
 import org.example.exception.*;
@@ -19,6 +19,7 @@ import org.example.service.logistic.LogisticsService;
 import org.example.service.wallet.WalletService;
 import org.example.util.Mapper;
 import org.example.util.DistanceCalculation;
+import org.example.util.Verification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -66,10 +67,10 @@ public class CustomerServiceImpl implements CustomerService {
 
 
       RegisterResponse response = new RegisterResponse("Registration completed");
-//        EmailRequest emailRequest = Mapper.emailRequest(registerRequest.getEmail(),
-//                "Congratulation "+registerRequest.getName()+" you have successfully register",
-//                "Registration Complete");
-//        emailService.send(emailRequest);
+        EmailRequest emailRequest = Mapper.emailRequest(registerRequest.getEmail(),
+                "Congratulation "+registerRequest.getName()+" you have successfully register",
+                "Registration Complete");
+        emailService.send(emailRequest);
         return response;
     }
 
@@ -109,7 +110,7 @@ public class CustomerServiceImpl implements CustomerService {
         if(price > Double.parseDouble(wallet) )throw new InsufficientBalanceException("insufficient wallet balance");
         LogisticCompany logisticCompany = logisticsService.checkLogisticCompany(bookDeliveryRequest.getLogisticCompanyEmail(),bookDeliveryRequest.getTypeOfVechicle());
         BookingResponse booking = deliveryService.bookDelivery(bookDeliveryRequest,price);
-        //administratorService.sendBookingEmail(booking,logisticCompany.getEmail());
+        administratorService.sendBookingEmail(booking,logisticCompany.getEmail());
         return booking.getBookingId();
 
     }
@@ -208,6 +209,24 @@ public class CustomerServiceImpl implements CustomerService {
         return deliveries;
     }
 
+    @Override
+    public void updateProfile(UpdateProfileRequest updateProfileRequest) {
+        Customers customer = customerRepository.findByEmail(updateProfileRequest.getEmail());
+        if(!userExist(updateProfileRequest.getEmail()))throw new UserExistException(updateProfileRequest+" user doesn't exist");
+        if(!isLocked(updateProfileRequest.getEmail()))throw new InvalidLoginDetail("Kindly login");
+        if(updateProfileRequest.getName() != null)customer.setName(updateProfileRequest.getName());
+        if(updateProfileRequest.getPhoneNumber() != null){
+            if(!Verification.verifyPhoneNumber(updateProfileRequest.getPhoneNumber()))throw new InvalidPhoneNumberException("Invalid number");
+            customer.setPhoneNumber(updateProfileRequest.getPhoneNumber());
+        }
+        if(updateProfileRequest.getStreet() != null && updateProfileRequest.getCity() != null) {
+            String address = updateProfileRequest.getStreet() + " "+ updateProfileRequest.getCity()+" "+ updateProfileRequest.getCountry();
+            customer.setAddress(address);
+        }
+        customerRepository.save(customer);
+
+
+    }
 
 
     private static double calculatePrice(CheckPriceQuotationRequest address, double kilometer) {
@@ -237,7 +256,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private static void checkIfRegisterRequestIsNull(CustomersRegisterRequest registerRequest) {
         if(registerRequest.getName() == null && registerRequest.getEmail() == null &&
-                registerRequest.getPassword() == null && registerRequest.getAddress() == null &&
+                registerRequest.getPassword() == null &&
                 registerRequest.getPhoneNumber() == null)throw new InvalidPasswordException("Kindly input correct details");
     }
 }

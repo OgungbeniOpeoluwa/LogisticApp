@@ -6,12 +6,11 @@ import org.example.data.model.Transaction;
 import org.example.data.model.Vechicle;
 import org.example.data.repository.CompanyRepository;
 import org.example.data.repository.VechicleRepository;
-import org.example.dto.BookDeliveryRequest;
+import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.*;
 import org.example.exception.InvalidLoginDetail;
 import org.example.service.admin.AdministratorService;
 import org.example.service.customers.CustomerService;
-import org.example.service.vechicle.VechicleService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,7 +151,7 @@ class LogisticServiceImplTest {
         customersRegisterRequest.setEmail("opeoluwaagnes@gmail.com");
         customersRegisterRequest.setPassword("Opemip@123");
         customersRegisterRequest.setPhoneNumber("07066221008");
-        customersRegisterRequest.setAddress("10 yaba lagos");
+//        customersRegisterRequest.setAddress("10 yaba lagos");
         customerService.register(customersRegisterRequest);
 
         LoginRequest loginRequest = new LoginRequest();
@@ -233,7 +232,7 @@ class LogisticServiceImplTest {
         customersRegisterRequest.setEmail("opeoluwaagnes@gmail.com");
         customersRegisterRequest.setPassword("Opemip@123");
         customersRegisterRequest.setPhoneNumber("07066221008");
-        customersRegisterRequest.setAddress("10 yaba lagos");
+//        customersRegisterRequest.setAddress("10 yaba lagos");
         customerService.register(customersRegisterRequest);
 
         LoginRequest loginRequest = new LoginRequest();
@@ -336,7 +335,7 @@ class LogisticServiceImplTest {
         customersRegisterRequest.setEmail("opeoluwaagnes@gmail.com");
         customersRegisterRequest.setPassword("Opemip@123");
         customersRegisterRequest.setPhoneNumber("07066221008");
-        customersRegisterRequest.setAddress("10 yaba lagos");
+//        customersRegisterRequest.setAddress("10 yaba lagos");
         customerService.register(customersRegisterRequest);
 
         LoginRequest loginRequest = new LoginRequest();
