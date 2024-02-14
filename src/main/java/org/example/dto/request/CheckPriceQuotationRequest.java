@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class CheckPriceQuotationRequest {
-    private String customerEmail;
     private String typeOfVehicle;
     private int weightOfPackage;
 

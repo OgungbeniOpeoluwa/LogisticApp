@@ -189,7 +189,7 @@ class CustomerServiceImplTest {
         registerRequest2.setPhoneNumber("08152865402");
         logisticsService.register(registerRequest2);
 
-        List<LogisticCompany> availableLogisticCompany = customerService.searchForAvailableLogistic(customersRegisterRequest.getEmail());
+        List<LogisticCompany> availableLogisticCompany = customerService.searchForAvailableLogistic();
         System.out.println(availableLogisticCompany);
         assertEquals(1,availableLogisticCompany.size());
 

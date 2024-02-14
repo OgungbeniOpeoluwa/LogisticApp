@@ -1,12 +1,16 @@
 package org.example.service.admin;
 
 import jakarta.validation.constraints.NotNull;
+import org.example.data.model.Account;
 import org.example.data.model.Administrator;
 import org.example.data.model.Delivery;
 import org.example.data.model.Transaction;
 import org.example.data.repository.AdministratorRepository;
+import org.example.dto.request.AccountRequest;
 import org.example.dto.request.EmailRequest;
 import org.example.dto.response.BookingResponse;
+import org.example.exception.UserExistException;
+import org.example.service.account.AccountService;
 import org.example.service.email.EmailService;
 import org.example.service.wallet.WalletService;
 import org.example.util.Mapper;
@@ -24,6 +28,8 @@ public class AdministratorServiceImpl implements AdministratorService {
     EmailService emailService;
     @Autowired
     WalletService walletService;
+    @Autowired
+    AccountService accountService;
 
     @Override
     public void depositConfirmationEmail(String email, double amount) {
@@ -92,6 +98,20 @@ public class AdministratorServiceImpl implements AdministratorService {
                 Kindly find below your transaction history %s""",companyName,transactions);
         EmailRequest emailRequest = Mapper.emailRequest(email,title,description);
         emailService.send(emailRequest);
+    }
+
+    @Override
+    public void setUpAccount(AccountRequest accountRequest) {
+        Administrator admin = administratorRepository.findByUsername(accountRequest.getUsername());
+        if(admin == null)throw new UserExistException("User doesn't exist");
+        accountService.setAccount(accountRequest,admin);
+
+    }
+
+    @Override
+    public Account getAccount(String admin) {
+        Administrator administrator = administratorRepository.findByUsername(admin);
+        return accountService.getAccount(administrator);
     }
 
 

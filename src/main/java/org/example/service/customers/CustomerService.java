@@ -5,6 +5,7 @@ import org.example.data.model.LogisticCompany;
 import org.example.dto.request.CheckPriceQuotationRequest;
 import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.*;
+import org.example.dto.response.DepositMoneyResponse;
 import org.example.dto.response.RegisterResponse;
 
 import java.math.BigDecimal;
@@ -19,11 +20,11 @@ public interface CustomerService {
 
     double getQuote(CheckPriceQuotationRequest address);
 
-    void depositToWallet(DepositMoneyRequest depositMoneyRequest);
+    DepositMoneyResponse depositToWallet(DepositMoneyRequest depositMoneyRequest);
 
     BigDecimal checkBalance(String email);
 
-    List<LogisticCompany> searchForAvailableLogistic(String email);
+    List<LogisticCompany> searchForAvailableLogistic();
 
     void cancelBookedDelivery(CustomerCancelBookingRequest cancelBookingRequest);
 

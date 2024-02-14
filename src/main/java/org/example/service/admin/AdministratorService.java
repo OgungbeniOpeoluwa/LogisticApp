@@ -1,8 +1,9 @@
 package org.example.service.admin;
 
-import jakarta.validation.constraints.NotNull;
+import org.example.data.model.Account;
 import org.example.data.model.Delivery;
 import org.example.data.model.Transaction;
+import org.example.dto.request.AccountRequest;
 import org.example.dto.response.BookingResponse;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface AdministratorService {
 
 
     void sendTransaction(String email, List<Transaction> transactions,String companyName);
+
+    void setUpAccount(AccountRequest accountRequest);
+    Account getAccount(String admin);
 }

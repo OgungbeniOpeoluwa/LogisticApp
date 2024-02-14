@@ -1,9 +1,6 @@
 package org.example.util;
 
-import org.example.data.model.Customers;
-import org.example.data.model.Delivery;
-import org.example.data.model.LogisticCompany;
-import org.example.data.model.Vechicle;
+import org.example.data.model.*;
 import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.CheckPriceQuotationRequest;
 import org.example.dto.request.*;
@@ -87,6 +84,14 @@ public class Mapper {
         Vechicle vechicle = new Vechicle();
         vechicle.setVechicleType(request.getVehicleType());
         return vechicle;
+    }
+
+    public static Account mapAccount(AccountRequest accountRequest){
+        Account account = new Account();
+        account.setAccountName(accountRequest.getAccountName());
+        account.setBankName(accountRequest.getBankName());
+        account.setAccountNumber(accountRequest.getAccountNumber());
+        return account;
     }
 
 

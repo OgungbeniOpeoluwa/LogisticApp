@@ -25,7 +25,7 @@ public interface DeliveryService {
 
     List<Delivery> searchDeliveryStatus(String companyName, String deliveryStatus);
 
-    String getOrderStatus(String bookingId, String email);
+    String getOrderStatus(String bookingId);
 
     Delivery updateDelivery(String update, LogisticCompany logisticCompany, String bookingId);
 

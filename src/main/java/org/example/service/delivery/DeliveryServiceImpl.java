@@ -150,8 +150,8 @@ public class DeliveryServiceImpl implements  DeliveryService{
     }
 
     @Override
-    public String getOrderStatus(String bookingId, String email) {
-        List<Delivery> allDelivery = findAllCustomerDelivery(email);
+    public String getOrderStatus(String bookingId) {
+        List<Delivery> allDelivery = deliveryRepository.findAll();
         for(Delivery delivery:allDelivery){
             if(delivery.getBookingId().equals(bookingId))return delivery.getDeliveryStatus().name();
         }

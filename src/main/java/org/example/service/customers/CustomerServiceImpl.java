@@ -8,6 +8,7 @@ import org.example.data.repository.CustomerRepository;
 import org.example.dto.request.CheckPriceQuotationRequest;
 import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.*;
+import org.example.dto.response.DepositMoneyResponse;
 import org.example.dto.response.RegisterResponse;
 import org.example.dto.response.BookingResponse;
 import org.example.dto.response.LongitudeLatitudeResponse;
@@ -119,8 +120,6 @@ public class CustomerServiceImpl implements CustomerService {
     public double getQuote(CheckPriceQuotationRequest address) {
         Set<ConstraintViolation<CheckPriceQuotationRequest>> violations = validator.validate(address);
         if(!violations.isEmpty())throw new InputException("invalid input");
-        userExist(address.getCustomerEmail());
-        if(!isLocked(address.getCustomerEmail()))throw new AppLockedException("Kindly login");
         String pickupAddress =address.getPickUpStreet()+","+" "+address.getPickUpCity()+","+" "+address.getPickUpState();
         String deliveryAddress = address.getDeliveryStreet()+","+" "+address.getDeliveryCity()+","+" "+address.getDeliveryState();
         LongitudeLatitudeResponse pickUpAddress = DistanceCalculation.location(pickupAddress);
@@ -132,14 +131,19 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void depositToWallet(DepositMoneyRequest depositMoneyRequest) {
+    public DepositMoneyResponse depositToWallet(DepositMoneyRequest depositMoneyRequest) {
         userExist(depositMoneyRequest.getEmail());
         if(!isLocked(depositMoneyRequest.getEmail()))throw new AppLockedException("Kindly login");
         Customers customers = customerRepository.findByEmail(depositMoneyRequest.getEmail());
         Wallet wallet = walletService.depositMoney(depositMoneyRequest.getAmount(),depositMoneyRequest.getEmail());
         customers.setWallet(wallet);
+        DepositMoneyResponse depositMoneyResponse = new DepositMoneyResponse();
+        Account account = administratorService.getAccount ("Admin");
+        if(account == null)throw new AccountException("No Account is available");
+        depositMoneyResponse.setMessage(account);
         administratorService.depositConfirmationEmail(depositMoneyRequest.getEmail(), depositMoneyRequest.getAmount());
         customerRepository.save(customers);
+        return depositMoneyResponse;
 
     }
 
@@ -151,9 +155,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<LogisticCompany> searchForAvailableLogistic(String email) {
-        if(!userExist(email))throw new UserExistException(email +" user doesn't exist");
-       if(!isLocked(email))throw new InvalidLoginDetail("Kindly login");
+    public List<LogisticCompany> searchForAvailableLogistic() {
        List<LogisticCompany> availableLogisticCompany = logisticsService.findAvailableLogisticCompany();
        if(availableLogisticCompany.isEmpty())throw new NoAvailableException("No Logistic company Available");
         return availableLogisticCompany;
@@ -184,9 +186,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public String trackOrder(TrackOrderRequest trackOrderRequest) {
-        if(!userExist(trackOrderRequest.getEmail()))throw new UserExistException(trackOrderRequest.getEmail() +" user doesn't exist");
-        if(!isLocked(trackOrderRequest.getEmail()))throw new InvalidLoginDetail("Kindly login");
-        String status = deliveryService.getOrderStatus(trackOrderRequest.getBookingId(),trackOrderRequest.getEmail());
+        String status = deliveryService.getOrderStatus(trackOrderRequest.getBookingId());
         if(status == null)throw new DeliveryException("Order doesn't exist");
         return status;
     }
