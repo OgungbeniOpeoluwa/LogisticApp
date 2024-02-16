@@ -12,7 +12,7 @@ public class BookDeliveryRequest {
     @NotNull
     private String receiverState;
     @NotNull
-    private String receiverCity;
+    private String receiverArea;
     @NotNull
     private String receiverPhoneNumber;
 
@@ -20,7 +20,7 @@ public class BookDeliveryRequest {
 
     private String pickUpState;
 
-    private String pickUpCity;
+    private String pickUpArea;
 
     private String pickUpStreet;
 
@@ -38,5 +38,5 @@ public class BookDeliveryRequest {
     @NotNull
     private String typeOfVechicle;
 
-    private String logisticCompanyEmail;
+    private String logisticCompanyName;
 }

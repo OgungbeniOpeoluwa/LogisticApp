@@ -61,12 +61,8 @@ class CustomerServiceImplTest {
     @BeforeEach
     public void setUpRegistration(){
         customersRegisterRequest= new CustomersRegisterRequest();
-        customersRegisterRequest.setName("opeoluwa");
         customersRegisterRequest.setEmail("opeoluwaagnes@gmail.com");
         customersRegisterRequest.setPassword("Opemip@123");
-        customersRegisterRequest.setPhoneNumber("07066221008");
-//        customersRegisterRequest.setAddress("10 yaba lagos");
-
     }
 
     @Test
@@ -78,11 +74,6 @@ class CustomerServiceImplTest {
     public void testThatWhenUserRegisterWithAWrongEmailFormatThrowsAnException(){
         customersRegisterRequest.setEmail("ope@errt");
         assertThrows(InvalidEmailException.class,()->customerService.register(customersRegisterRequest));
-    }
-    @Test
-    public void testThatWhenUserRegisterWithAWrongPhoneNumberItThrowsAnException(){
-        customersRegisterRequest.setPhoneNumber("090846785362345");
-        assertThrows(InvalidPhoneNumberException.class,()->customerService.register(customersRegisterRequest));
     }
     @Test
     public void testThatWhenAUserSuccessfullyRegisterItReturnsAMessageOfSuccessful(){
@@ -124,7 +115,6 @@ class CustomerServiceImplTest {
         address.setPickUpState("ogun state");
         address.setPickUpCity("mowe");
         address.setDeliveryStreet("13 Emily akinsola");
-        address.setCustomerEmail("opeoluwaagnes@gmail.com");
         address.setTypeOfVehicle("bike");
         address.setWeightOfPackage(5);
         assertEquals(14620,customerService.getQuote(address));
@@ -289,7 +279,6 @@ class CustomerServiceImplTest {
 
         TrackOrderRequest trackOrderRequest = new TrackOrderRequest();
         trackOrderRequest.setBookingId(bookingId);
-        trackOrderRequest.setEmail(customersRegisterRequest.getEmail());
         String statues = customerService.trackOrder(trackOrderRequest);
         assertEquals("CANCELLED",statues);
     }
@@ -376,19 +365,19 @@ class CustomerServiceImplTest {
         BookDeliveryRequest bookDeliveryRequest = new BookDeliveryRequest();
         bookDeliveryRequest.setPickUpName("delighted");
         bookDeliveryRequest.setPickUpStreet("19 igbobi road adesan");
-        bookDeliveryRequest.setPickUpCity("mowe");
+        bookDeliveryRequest.setPickUpArea("mowe");
         bookDeliveryRequest.setPickUpState("Ogun state");
         bookDeliveryRequest.setPickUpPhoneNumber("0706622108");
 
         bookDeliveryRequest.setCustomerEmail("opeoluwaagnes@gmail.com");
 
-        bookDeliveryRequest.setReceiverCity("Akoka yaba");
+        bookDeliveryRequest.setReceiverArea("Akoka yaba");
         bookDeliveryRequest.setReceiverState("lagos state");
         bookDeliveryRequest.setReceiverStreet("13 Emily Akinsola");
         bookDeliveryRequest.setReceiverPhoneNumber("08152865402");
         bookDeliveryRequest.setReceiverName("shola");
 
-        bookDeliveryRequest.setLogisticCompanyEmail("Vision five Company");
+        bookDeliveryRequest.setLogisticCompanyName("Vision five Company");
 
 
         bookDeliveryRequest.setTypeOfPackage("files");

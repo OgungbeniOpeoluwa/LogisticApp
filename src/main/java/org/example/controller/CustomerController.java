@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import com.mysql.cj.log.Log;
 import org.example.dto.request.*;
 import org.example.dto.response.*;
 import org.example.exception.LogisticException;
@@ -36,7 +37,7 @@ public class CustomerController {
             return new ResponseEntity<>(new ApiResponse(loginResponse,true),HttpStatus.OK);
         }
         catch(LogisticException logisticException){
-            loginResponse.setMessage(loginResponse.getMessage());
+            loginResponse.setMessage(logisticException.getMessage());
             return new ResponseEntity<>(new ApiResponse(loginResponse,true),HttpStatus.BAD_REQUEST);
         }
 
@@ -49,14 +50,15 @@ public class CustomerController {
             return new ResponseEntity<>(new ApiResponse(bookingResponse,true),HttpStatus.ACCEPTED);
         }
         catch (LogisticException exception){
+            bookingResponse.setMessage(exception.getMessage());
             return  new ResponseEntity<>(new ApiResponse(bookingResponse,false),HttpStatus.BAD_REQUEST);
         }
     }
-    @PostMapping("/trackOrder")
+    @GetMapping("/trackOrder")
     public ResponseEntity<?> trackOrder(@RequestBody TrackOrderRequest trackOrderRequest){
         TrackOrderResponse trackOrderResponse = new TrackOrderResponse();
         try{
-            trackOrderResponse.setMessage(customerService.trackOrder(trackOrderRequest));
+            trackOrderResponse.setMessage("You order is "+customerService.trackOrder(trackOrderRequest));
             return new ResponseEntity<>(new ApiResponse(trackOrderResponse,true),HttpStatus.OK);
         }
         catch(LogisticException logisticException){
@@ -76,17 +78,91 @@ public class CustomerController {
             return  new ResponseEntity<>(new ApiResponse(availableLogisticCompany,false),HttpStatus.NOT_FOUND);
         }
     }
-    @PostMapping("/deposit")
-    public ResponseEntity<?> depositToWallet(@RequestBody DepositMoneyRequest depositMoneyRequest){
-        DepositMoneyResponse depositMoneyResponse = new DepositMoneyResponse();
+
+    @GetMapping("/bookingHistoryByStatus")
+    public ResponseEntity<?> getAllBookingByStatus(@RequestBody FindDeliveryByStatus findDeliveryByStatus){
+        FindDeliveryByStatusResponse findDeliveryByStatusResponse = new FindDeliveryByStatusResponse();
         try{
-            depositMoneyResponse = customerService.depositToWallet(depositMoneyRequest);
-            return new ResponseEntity<>(new ApiResponse(depositMoneyResponse,true),HttpStatus.ACCEPTED);
+            findDeliveryByStatusResponse.setMessage(customerService.searchByDeliveryStatus(findDeliveryByStatus));
+            return new ResponseEntity<>(new ApiResponse(findDeliveryByStatusResponse,true),HttpStatus.FOUND);
         }
         catch (LogisticException logisticException){
-            depositMoneyResponse.setMessage(logisticException.getMessage());
-            return new ResponseEntity<>(new ApiResponse(depositMoneyResponse,false),HttpStatus.BAD_REQUEST);
+            findDeliveryByStatusResponse.setMessage(logisticException.getMessage());
+            return new ResponseEntity<>(new ApiResponse(findDeliveryByStatusResponse,false),HttpStatus.NOT_FOUND);
         }
     }
+    @PostMapping("/cancel")
+    public  ResponseEntity<?> cancelDelivery(@RequestBody CustomerCancelBookingRequest cancelBookingRequest){
+        CancelBookingResponse cancel = new CancelBookingResponse();
+        try{
+            customerService.cancelBookedDelivery(cancelBookingRequest);
+            cancel.setMessage("Your order has been cancelled");
+            return new ResponseEntity<>(new ApiResponse(cancel,true),HttpStatus.ACCEPTED);
+        }
+        catch(LogisticException logisticException){
+            cancel.setMessage(logisticException.getMessage());
+           return new ResponseEntity<>(new ApiResponse(cancel,false),HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping("/allHistory/{email}")
+    public ResponseEntity<?> getAllBookingHistory(@PathVariable(name = "email") String email){
+        CustomerBookingHistory customerBookingHistory = new CustomerBookingHistory();
+        try{
+            customerBookingHistory.setMessage(customerService.findAllDeliveries(email));
+            return new ResponseEntity<>(new ApiResponse(customerBookingHistory,true),HttpStatus.FOUND);
+        }
+        catch (LogisticException logisticException){
+            customerBookingHistory.setMessage(logisticException.getMessage());
+            return new ResponseEntity<>(new ApiResponse(customerBookingHistory,false),HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //    @PostMapping("/deposit")
+//    public ResponseEntity<?> depositToWallet(@RequestBody DepositMoneyRequest depositMoneyRequest){
+//        DepositMoneyResponse depositMoneyResponse = new DepositMoneyResponse();
+//        try{
+//            depositMoneyResponse = customerService.depositToWallet(depositMoneyRequest);
+//            return new ResponseEntity<>(new ApiResponse(depositMoneyResponse,true),HttpStatus.ACCEPTED);
+//        }
+//        catch (LogisticException logisticException){
+//            depositMoneyResponse.setMessage(logisticException.getMessage());
+//            return new ResponseEntity<>(new ApiResponse(depositMoneyResponse,false),HttpStatus.BAD_REQUEST);
+//        }
+//    }
+//    @GetMapping("/balance/{email}")
+//    public ResponseEntity<?> getBalance(@PathVariable(name="email")String email){
+//        CheckBalanceResponse checkBalanceResponse = new CheckBalanceResponse();
+//        try{
+//            checkBalanceResponse.setMessage("your wallet balance is " +customerService.checkBalance(email));
+//            return new ResponseEntity<>(new ApiResponse(checkBalanceResponse,true),HttpStatus.FOUND);
+//        }
+//        catch (LogisticException exception){
+//            checkBalanceResponse.setMessage(exception.getMessage());
+//            return new ResponseEntity<>(new ApiResponse(checkBalanceResponse,false),HttpStatus.NOT_FOUND);
+//        }
+//    }
+
+
 }
 

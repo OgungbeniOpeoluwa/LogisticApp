@@ -147,11 +147,8 @@ class LogisticServiceImplTest {
         logisticsService.setDayAvailability(availabiltyRequest);
 
         CustomersRegisterRequest customersRegisterRequest= new CustomersRegisterRequest();
-        customersRegisterRequest.setName("opeoluwa");
         customersRegisterRequest.setEmail("opeoluwaagnes@gmail.com");
         customersRegisterRequest.setPassword("Opemip@123");
-        customersRegisterRequest.setPhoneNumber("07066221008");
-//        customersRegisterRequest.setAddress("10 yaba lagos");
         customerService.register(customersRegisterRequest);
 
         LoginRequest loginRequest = new LoginRequest();
@@ -228,11 +225,8 @@ class LogisticServiceImplTest {
         logisticsService.setDayAvailability(availabiltyRequest);
 
         CustomersRegisterRequest customersRegisterRequest= new CustomersRegisterRequest();
-        customersRegisterRequest.setName("opeoluwa");
         customersRegisterRequest.setEmail("opeoluwaagnes@gmail.com");
         customersRegisterRequest.setPassword("Opemip@123");
-        customersRegisterRequest.setPhoneNumber("07066221008");
-//        customersRegisterRequest.setAddress("10 yaba lagos");
         customerService.register(customersRegisterRequest);
 
         LoginRequest loginRequest = new LoginRequest();
@@ -263,7 +257,6 @@ class LogisticServiceImplTest {
         logisticsService.updateDeliveryStatus(updateDeliveryStatusRequest);
 
         TrackOrderRequest trackOrderRequest = new TrackOrderRequest();
-        trackOrderRequest.setEmail(customersRegisterRequest.getEmail());
         trackOrderRequest.setBookingId(bookingId);
 
         assertEquals("IN_TRANSIT", customerService.trackOrder(trackOrderRequest));
@@ -331,11 +324,8 @@ class LogisticServiceImplTest {
         logisticsService.setDayAvailability(availabiltyRequest);
 
         CustomersRegisterRequest customersRegisterRequest= new CustomersRegisterRequest();
-        customersRegisterRequest.setName("opeoluwa");
         customersRegisterRequest.setEmail("opeoluwaagnes@gmail.com");
         customersRegisterRequest.setPassword("Opemip@123");
-        customersRegisterRequest.setPhoneNumber("07066221008");
-//        customersRegisterRequest.setAddress("10 yaba lagos");
         customerService.register(customersRegisterRequest);
 
         LoginRequest loginRequest = new LoginRequest();
@@ -388,19 +378,19 @@ class LogisticServiceImplTest {
         BookDeliveryRequest bookDeliveryRequest = new BookDeliveryRequest();
         bookDeliveryRequest.setPickUpName("delighted");
         bookDeliveryRequest.setPickUpStreet("19 igbobi road adesan");
-        bookDeliveryRequest.setPickUpCity("mowe");
+        bookDeliveryRequest.setPickUpArea("mowe");
         bookDeliveryRequest.setPickUpState("Ogun state");
         bookDeliveryRequest.setPickUpPhoneNumber("0706622108");
 
         bookDeliveryRequest.setCustomerEmail("opeoluwaagnes@gmail.com");
 
-        bookDeliveryRequest.setReceiverCity("Akoka yaba");
+        bookDeliveryRequest.setReceiverArea("Akoka yaba");
         bookDeliveryRequest.setReceiverState("lagos state");
         bookDeliveryRequest.setReceiverStreet("13 Emily Akinsola");
         bookDeliveryRequest.setReceiverPhoneNumber("08152865402");
         bookDeliveryRequest.setReceiverName("shola");
 
-        bookDeliveryRequest.setLogisticCompanyEmail("Vision Five Company");
+        bookDeliveryRequest.setLogisticCompanyName("Vision Five Company");
 
 
         bookDeliveryRequest.setTypeOfPackage("files");

@@ -38,4 +38,6 @@ public interface CustomerService {
 
 
     void updateProfile(UpdateProfileRequest updateProfileRequest);
+
+    void setUpProfile(SetUpProfileRequest setUpProfileRequest);
 }

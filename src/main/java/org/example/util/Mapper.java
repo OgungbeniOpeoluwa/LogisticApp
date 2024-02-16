@@ -14,11 +14,8 @@ public class Mapper {
     public static Customers MapRegister(CustomersRegisterRequest request){
         if(!Verification.verifyPassword(request.getPassword()))throw new InvalidPasswordException("Weak password");
         if(!Verification.verifyEmail(request.getEmail()))throw new InvalidEmailException("Email not Valid");
-        if(!Verification.verifyPhoneNumber(request.getPhoneNumber()))throw new InvalidPhoneNumberException("Enter a valid number");
         Customers customers = new Customers();
-        customers.setName(request.getName());
         customers.setEmail(request.getEmail());
-        customers.setPhoneNumber(request.getPhoneNumber());
         String encodePassword = encryptPassword(request.getPassword());
         customers.setPassword(encodePassword);
         return customers;
@@ -40,28 +37,27 @@ public class Mapper {
     public static CheckPriceQuotationRequest mapQuotation(BookDeliveryRequest bookDeliveryRequest) {
         CheckPriceQuotationRequest priceQuotationRequest = new CheckPriceQuotationRequest();
         priceQuotationRequest.setDeliveryStreet(bookDeliveryRequest.getReceiverStreet());
-        priceQuotationRequest.setDeliveryCity(bookDeliveryRequest.getReceiverCity());
+        priceQuotationRequest.setDeliveryCity(bookDeliveryRequest.getReceiverArea());
         priceQuotationRequest.setDeliveryState(bookDeliveryRequest.getReceiverState());
 
-        priceQuotationRequest.setPickUpCity(bookDeliveryRequest.getPickUpCity());
+        priceQuotationRequest.setPickUpCity(bookDeliveryRequest.getPickUpArea());
         priceQuotationRequest.setPickUpState(bookDeliveryRequest.getPickUpState());
         priceQuotationRequest.setPickUpStreet(bookDeliveryRequest.getPickUpStreet());
 
-        priceQuotationRequest.setCustomerEmail(bookDeliveryRequest.getCustomerEmail());
         priceQuotationRequest.setTypeOfVehicle(bookDeliveryRequest.getTypeOfVechicle());
         priceQuotationRequest.setWeightOfPackage(bookDeliveryRequest.getPackageWeight());
         return priceQuotationRequest;
     }
     public static Delivery mapDelivery(BookDeliveryRequest bookDeliveryRequest){
         Delivery delivery = new Delivery();
-        String pickUpAddress = bookDeliveryRequest.getPickUpStreet() +" "+ bookDeliveryRequest.getPickUpCity() + " "+ bookDeliveryRequest.getPickUpState();
-        String deliveryAddress = bookDeliveryRequest.getReceiverStreet() +" "+bookDeliveryRequest.getReceiverCity()+ " "+bookDeliveryRequest.getReceiverState();
+        String pickUpAddress = bookDeliveryRequest.getPickUpStreet() +" "+ bookDeliveryRequest.getPickUpArea() + " "+ bookDeliveryRequest.getPickUpState();
+        String deliveryAddress = bookDeliveryRequest.getReceiverStreet() +" "+bookDeliveryRequest.getReceiverArea()+ " "+bookDeliveryRequest.getReceiverState();
         delivery.setPickUpAddress(pickUpAddress);
         delivery.setPickUpPhoneNumber(bookDeliveryRequest.getPickUpPhoneNumber());
         delivery.setNameOfVechicle(bookDeliveryRequest.getTypeOfVechicle());
         delivery.setRecieverAddress(deliveryAddress);
         delivery.setRecieverPhoneNumber(bookDeliveryRequest.getReceiverPhoneNumber());
-        delivery.setLogisticCompany(bookDeliveryRequest.getLogisticCompanyEmail());
+        delivery.setLogisticCompany(bookDeliveryRequest.getLogisticCompanyName());
         delivery.setRecieverEmail(bookDeliveryRequest.getReceiverEmail());
         delivery.setRecieverName(bookDeliveryRequest.getReceiverName());
         delivery.setCustomerEmail(bookDeliveryRequest.getCustomerEmail());
@@ -75,6 +71,7 @@ public class Mapper {
         logisticCompany.setCompanyName(logisticRegisterRequest.getCompanyName());
         String password = encryptPassword(logisticRegisterRequest.getPassword());
         logisticCompany.setPassword(password);
+        logisticCompany.setPhoneNumber(logisticCompany.getPhoneNumber());
         logisticCompany.setAddress(logisticRegisterRequest.getAddress());
         logisticCompany.setEmail(logisticRegisterRequest.getEmail());
         logisticCompany.setCacNumber(logisticRegisterRequest.getCacNumber());

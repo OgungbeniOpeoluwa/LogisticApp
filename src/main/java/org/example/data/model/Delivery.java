@@ -28,6 +28,7 @@ public class Delivery {
 
     private String logisticCompany;
 
+    @JsonIgnore
     private double companyAmount;
 
     private double deliveryPrice;

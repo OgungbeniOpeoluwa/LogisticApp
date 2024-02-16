@@ -1,5 +1,6 @@
 package org.example.data.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,9 +15,11 @@ public class LogisticCompany{
     @Column(name = "company_id")
     private Long id;
     private  String companyName;
-    private String  socialMediaLink;
+    private String  phoneNumber;
+    @JsonIgnore
     private String password;
     private String address;
+    @JsonIgnore
     private boolean isLoginStatus;
     private String email;
     private String cacNumber;

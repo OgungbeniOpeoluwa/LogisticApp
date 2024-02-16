@@ -37,7 +37,7 @@ public class LogisticController {
             return new ResponseEntity<>(new ApiResponse(loginResponse,true),HttpStatus.OK);
         }
         catch(LogisticException logisticException){
-            loginResponse.setMessage(loginResponse.getMessage());
+            loginResponse.setMessage(logisticException.getMessage());
             return new ResponseEntity<>(new ApiResponse(loginResponse,false),HttpStatus.BAD_REQUEST);
         }
     }
@@ -47,7 +47,7 @@ public class LogisticController {
         try{
             logisticsService.responseToBookingRequest(bookingRequest);
              acceptBookingResponse.setMessage("Booking being process");
-             return new ResponseEntity<>(new ApiResponse(acceptBookingResponse,true),HttpStatus.PROCESSING);
+             return new ResponseEntity<>(new ApiResponse(acceptBookingResponse,true),HttpStatus.OK);
         }catch (LogisticException logisticException){
             acceptBookingResponse.setMessage(logisticException.getMessage());
             return new ResponseEntity<>(new ApiResponse(acceptBookingResponse,false),HttpStatus.BAD_REQUEST);

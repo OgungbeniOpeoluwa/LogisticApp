@@ -48,8 +48,8 @@ public class LogisticServiceImpl implements LogisticsService{
 
     @Override
     public void login(CompanyLoginRequest companyLoginRequest) {
-        if(!companyName(companyLoginRequest.getCompanyName()))throw new InvalidLoginDetail("Invalid login details");
         LogisticCompany logisticCompany = companyRepository.findByCompanyName(companyLoginRequest.getCompanyName());
+        if(!companyName(companyLoginRequest.getCompanyName()))throw new InvalidLoginDetail("Invalid login details");
         if(!checkPassword(companyLoginRequest.getCompanyName(), companyLoginRequest.getPassword()))throw new InvalidLoginDetail("Invalid login details");
         logisticCompany.setLoginStatus(true);
         companyRepository.save(logisticCompany);
@@ -108,8 +108,8 @@ public class LogisticServiceImpl implements LogisticsService{
     }
 
     @Override
-    public LogisticCompany checkLogisticCompany(String logisticCompanyEmail, String typeOfVechicle) {
-        LogisticCompany logisticCompany = companyRepository.findByCompanyName(logisticCompanyEmail);
+    public LogisticCompany checkLogisticCompany(String logisticCompanyName, String typeOfVechicle) {
+        LogisticCompany logisticCompany = companyRepository.findByCompanyName(logisticCompanyName);
         if(logisticCompany == null)throw new LogisticException("Logistic company doesn't exist");
         List<Vechicle> allVechicle = vechicleService.findAllVechilcleBelongingToUser(logisticCompany);
         for(Vechicle vechicle: allVechicle) {

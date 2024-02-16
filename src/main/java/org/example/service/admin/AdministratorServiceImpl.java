@@ -59,11 +59,11 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public void UpdateDeliveryEmail(Delivery delivery, String response) {
         if(response.equalsIgnoreCase("Accepted")){
-           BigDecimal balance = walletService.deductDeliveryFee(delivery.getCustomerEmail(),delivery.getDeliveryPrice());
+         //  BigDecimal balance = walletService.deductDeliveryFee(delivery.getCustomerEmail(),delivery.getDeliveryPrice());
            String title = "Update on delivery Request";
            String description = String.format("""
                    Hello %s your Booking request Has Successfully been booked.
-                   Your current balance is %s """,delivery.getCustomerEmail(),balance);
+                   you can track your booking with your booking id %s """,delivery.getCustomerEmail(),delivery.getBookingId());
            EmailRequest emailRequest = Mapper.emailRequest(delivery.getCustomerEmail(),title,description);
            emailService.send(emailRequest);
         }
@@ -80,7 +80,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Override
     public void cancelBookingEmail(String email,String bookingId,String reason,String customerEmail,double price) {
-        walletService.refundBalance(customerEmail,price);
+       // walletService.refundBalance(customerEmail,price);
         String title ="Delivery Cancelled";
         String description = String.format("""
                 Hello %s

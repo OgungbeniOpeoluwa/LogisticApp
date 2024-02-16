@@ -69,7 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
 
       RegisterResponse response = new RegisterResponse("Registration completed");
         EmailRequest emailRequest = Mapper.emailRequest(registerRequest.getEmail(),
-                "Congratulation "+registerRequest.getName()+" you have successfully register",
+                "Congratulation "+" you have successfully register",
                 "Registration Complete");
         emailService.send(emailRequest);
         return response;
@@ -103,13 +103,13 @@ public class CustomerServiceImpl implements CustomerService {
     public String bookDelivery(BookDeliveryRequest bookDeliveryRequest) {
         Set<ConstraintViolation<BookDeliveryRequest>> violations = validator.validate(bookDeliveryRequest);
         if(!violations.isEmpty())throw new InputException("invalid input");
-        userExist(bookDeliveryRequest.getCustomerEmail());
+        if(!userExist(bookDeliveryRequest.getCustomerEmail()))throw new UserExistException(bookDeliveryRequest.getCustomerEmail() + " doesn't exist");
         if(!isLocked(bookDeliveryRequest.getCustomerEmail()))throw new AppLockedException("Kindly login");
-        String wallet = String.valueOf(walletService.checkBalance(bookDeliveryRequest.getCustomerEmail()));
+       // String wallet = String.valueOf(walletService.checkBalance(bookDeliveryRequest.getCustomerEmail()));
         CheckPriceQuotationRequest quotationRequest = Mapper.mapQuotation(bookDeliveryRequest);
         double price = getQuote(quotationRequest);
-        if(price > Double.parseDouble(wallet) )throw new InsufficientBalanceException("insufficient wallet balance");
-        LogisticCompany logisticCompany = logisticsService.checkLogisticCompany(bookDeliveryRequest.getLogisticCompanyEmail(),bookDeliveryRequest.getTypeOfVechicle());
+       // if(price > Double.parseDouble(wallet) )throw new InsufficientBalanceException("insufficient wallet balance");
+        LogisticCompany logisticCompany = logisticsService.checkLogisticCompany(bookDeliveryRequest.getLogisticCompanyName(),bookDeliveryRequest.getTypeOfVechicle());
         BookingResponse booking = deliveryService.bookDelivery(bookDeliveryRequest,price);
         administratorService.sendBookingEmail(booking,logisticCompany.getEmail());
         return booking.getBookingId();
@@ -171,7 +171,7 @@ public class CustomerServiceImpl implements CustomerService {
             administratorService.cancelBookingEmail(logisticCompany.getEmail(),cancelBookingRequest.getBookingId(),cancelBookingRequest.getReasonOnWhyBookingWasCancelled(),
                     cancelBookingRequest.getCustomerEmail(), delivery.getDeliveryPrice());
         }
-        else walletService.refundBalance(cancelBookingRequest.getCustomerEmail(), delivery.getDeliveryPrice());
+       // else walletService.refundBalance(cancelBookingRequest.getCustomerEmail(), delivery.getDeliveryPrice());
 
     }
 
@@ -228,6 +228,20 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
+    @Override
+    public void setUpProfile(SetUpProfileRequest setUpProfileRequest) {
+        Customers customers =customerRepository.findByEmail(setUpProfileRequest.getEmail());
+        if(customers == null)throw new UserExistException("User doesn't exist");
+        if(!isLocked(setUpProfileRequest.getEmail())) throw new AppLockedException("Kindly login");
+        if(!Verification.verifyPhoneNumber(setUpProfileRequest.getPhoneNumber()))throw new InvalidPhoneNumberException("Enter a valid number");
+        customers.setName(setUpProfileRequest.getName());
+        customers.setPhoneNumber(setUpProfileRequest.getPhoneNumber());
+        String address = setUpProfileRequest.getStreet() + " " + setUpProfileRequest.getCity() + " " + setUpProfileRequest.getCountry();
+        customers.setAddress(address);
+        customerRepository.save(customers);
+
+    }
+
 
     private static double calculatePrice(CheckPriceQuotationRequest address, double kilometer) {
         double format = Double.parseDouble(String.format("%.1f",kilometer));
@@ -255,8 +269,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     private static void checkIfRegisterRequestIsNull(CustomersRegisterRequest registerRequest) {
-        if(registerRequest.getName() == null && registerRequest.getEmail() == null &&
-                registerRequest.getPassword() == null &&
-                registerRequest.getPhoneNumber() == null)throw new InvalidPasswordException("Kindly input correct details");
+        if( registerRequest.getEmail() == null && registerRequest.getPassword() == null)throw new InvalidPasswordException("Kindly input correct details");
     }
 }
