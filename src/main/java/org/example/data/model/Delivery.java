@@ -39,7 +39,7 @@ public class Delivery {
 
     @Enumerated
     private DeliveryStatus deliveryStatus = DeliveryStatus.PENDING;
-
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
     private  LogisticCompany company;
 

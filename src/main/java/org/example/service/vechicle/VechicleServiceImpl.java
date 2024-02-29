@@ -61,22 +61,15 @@ public class VechicleServiceImpl implements VechicleService {
     public Vechicle setVechicleLimitPerDay(SetDayAvailabiltyRequest availabiltyRequest,LogisticCompany logisticCompany) {
         List<Vechicle> userVechicle = findAllVechilcleBelongingToUser(logisticCompany);
         if(userVechicle.isEmpty())throw new VechicleException("No vehicle register under company name");
-        if(checkIfThereIsPendingDelivery(availabiltyRequest.getVechicleType(),logisticCompany))throw new DeliveryException("Kindly deliver pending deliveries");
-        for (Vechicle vechicle : userVechicle) {
-            if (vechicle.getVechicleType().equalsIgnoreCase(availabiltyRequest.getVechicleType()))
-                vechicle.setLimitPerDay(availabiltyRequest.getNumber());
-            vechicleRepository.save(vechicle);
-            return vechicle;
-
-        }
-        throw new VechicleException("vehicle name doesn't exist");
+        Vechicle vechicles = findAVechicle(availabiltyRequest.getVechicleType(),logisticCompany);
+        if(vechicles == null) throw new VechicleException("Vechicle doesn't exist");
+        if(!checkIfThereIsPendingDelivery(vechicles))throw new DeliveryException("Kindly deliver pending deliveries");
+        vechicles.setLimitPerDay(availabiltyRequest.getNumber());
+            vechicleRepository.save(vechicles);
+            return vechicles;
     }
-    private boolean checkIfThereIsPendingDelivery(String nameOfVechicleType,LogisticCompany logisticCompany){
-       List<Vechicle> allVechicle = findAllVechilcleBelongingToUser(logisticCompany);
-       for(Vechicle vechicle: allVechicle){
-           if(vechicle.getLimitPerDay() > 0)return true;
-       }
-       return false;
+    private boolean checkIfThereIsPendingDelivery(Vechicle vechicle){
+        return vechicle.getLimitPerDay() == 0;
     }
 
     @Override
@@ -91,6 +84,14 @@ public class VechicleServiceImpl implements VechicleService {
             }
         }
 
+    }
+    private Vechicle findAVechicle(String vechicleType, LogisticCompany logisticCompany){
+        List<Vechicle> vechicles = findAllVechilcleBelongingToUser(logisticCompany);
+        for (Vechicle vechicle: vechicles
+             ) {
+            if(vechicle.getVechicleType().equalsIgnoreCase(vechicleType))return vechicle;
+        }
+        return null;
     }
 
     @Override

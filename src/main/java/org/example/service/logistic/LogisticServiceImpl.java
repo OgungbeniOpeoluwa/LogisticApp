@@ -51,6 +51,7 @@ public class LogisticServiceImpl implements LogisticsService{
         LogisticCompany logisticCompany = companyRepository.findByCompanyName(companyLoginRequest.getCompanyName());
         if(!companyName(companyLoginRequest.getCompanyName()))throw new InvalidLoginDetail("Invalid login details");
         if(!checkPassword(companyLoginRequest.getCompanyName(), companyLoginRequest.getPassword()))throw new InvalidLoginDetail("Invalid login details");
+        if(logisticCompany.isLoginStatus())throw new AppLockedException("You are in already");
         logisticCompany.setLoginStatus(true);
         companyRepository.save(logisticCompany);
 

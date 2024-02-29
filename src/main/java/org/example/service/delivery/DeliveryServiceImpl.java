@@ -47,18 +47,23 @@ public class DeliveryServiceImpl implements  DeliveryService{
     public Delivery updateDeliveryRequest(AcceptBookingRequest acceptBookingRequest, LogisticCompany logisticCompany) {
         Delivery delivery = deliveryRepository.findByBookingId(acceptBookingRequest.getBookingId());
         if(delivery == null)throw new DeliveryException("Booking id doesn't exist");
+        if(!delivery.getDeliveryStatus().equals(DeliveryStatus.PENDING))throw new DeliveryException("Delivery has been "+
+                delivery.getDeliveryStatus());
+
         if(acceptBookingRequest.getResponse().equalsIgnoreCase("Accepted")){
             delivery.setDeliveryStatus(DeliveryStatus.ACCEPTED);
             delivery.setCompany(logisticCompany);
             deliveryRepository.save(delivery);
             return delivery;
         }
+
         if (acceptBookingRequest.getResponse().equalsIgnoreCase("Rejected")) {
             delivery.setDeliveryStatus(DeliveryStatus.REJECTED);
             deliveryRepository.save(delivery);
             return delivery;
         }
         throw new DeliveryException("Invalid input");
+
     }
 
     @Override
@@ -94,10 +99,11 @@ public class DeliveryServiceImpl implements  DeliveryService{
 //    }
 
     @Override
-    public Delivery searchByDeliveryId(String bookingId, String customerEmail) {
+    public Delivery searchByDeliveryId(String bookingId, String Email) {
         Delivery delivery = deliveryRepository.findByBookingId(bookingId);
         if(delivery != null) {
-            if (delivery.getCustomerEmail().equals(customerEmail)) return delivery;
+            if (delivery.getCustomerEmail().equals(Email)) return delivery;
+            else if(delivery.getLogisticCompany().equalsIgnoreCase(Email))return delivery;
         }
         return null;
     }
@@ -105,6 +111,7 @@ public class DeliveryServiceImpl implements  DeliveryService{
     public List<Delivery> findAllLogisticDelivery(LogisticCompany logisticCompany){
         List <Delivery> deliveries = new ArrayList<>();
         for(Delivery delivery:deliveryRepository.findAll()){
+            System.out.println(delivery);
             if(delivery.getCompany().equals(logisticCompany))deliveries.add(delivery);
         }
         return deliveries;
@@ -160,8 +167,9 @@ public class DeliveryServiceImpl implements  DeliveryService{
 
     @Override
     public Delivery updateDelivery(String update, LogisticCompany logisticCompany, String bookingId) {
-        Delivery delivery = findLogisticDeliveryById(logisticCompany,bookingId);
+        Delivery delivery = searchByDeliveryId(bookingId,logisticCompany.getCompanyName());
         if(delivery == null)throw new DeliveryException("Delivery order doesn't exist");
+        if(delivery.getCompany() == null)throw new DeliveryException("No company has been assign to the delivery");
         if(DeliveryStatus.IN_TRANSIT.name().equalsIgnoreCase(update)){
             delivery.setDeliveryStatus(DeliveryStatus.IN_TRANSIT);
             deliveryRepository.save(delivery);

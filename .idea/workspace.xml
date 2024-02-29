@@ -5,71 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="223aecb8-8e03-43d3-a77a-eded97f7e9a9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data/model/Transaction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data/model/TypeOfVehicle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data/model/Vechicle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data/model/Wallet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data/model/WalletStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data/repository/CompanyRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data/repository/DeliveryRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data/repository/VechicleRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data/repository/WalletRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/BookDeliveryRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/CheckDeliveryPriceRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/CheckPriceQuotationRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/request/CompanyLoginRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/request/DepositMoneyRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/request/RegisterVehicleRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/response/LongitudeLatitudeResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/exception/AppLockedException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/exception/InputException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/exception/InsufficientBalanceException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/exception/VechicleException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/exception/WalletException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/admin/AdministratorService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/admin/AdministratorServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/customers/CustomerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/customers/CustomerServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/delivery/DeliveryService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/delivery/DeliveryServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/logistic/LogisticServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/logistic/LogisticsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/vechicle/VechicleService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/vechicle/VechicleServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/wallet/WalletService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/wallet/WalletServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/util/GenerateBookingId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/util/VincentyFormula.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/service/logistic/LogisticServiceImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data/model/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/data/model/Administrator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/LogisticController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/LogisticController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data/model/Customers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/data/model/Customers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data/model/Delivery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/data/model/Delivery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data/model/Rider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/data/model/LogisticCompany.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data/model/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data/repository/AdministratorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/data/repository/AdministratorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data/repository/RiderRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data/repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/AdministratorRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/request/LogisticRegisterRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/EmailRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/request/EmailRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/request/LoginRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/request/CustomersRegisterRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/AdministratorService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/AdministratorServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/CustomerService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/CustomerServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/email/EmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/EmailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/email/EmailServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/RiderService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/RiderServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/UserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/util/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/util/Mapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/util/VerifyRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/util/VerifyRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/AdministratorServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/AdministratorServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/CustomerServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/CustomerServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/delivery/DeliveryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/delivery/DeliveryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/logistic/LogisticServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/logistic/LogisticServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/vechicle/VechicleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/vechicle/VechicleServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,6 +24,7 @@
         <option value="Enum" />
         <option value="JUnit5 Test Class" />
         <option value="Interface" />
+        <option value="package.json" />
         <option value="Class" />
       </list>
     </option>
@@ -122,10 +65,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.example.dto.response" />
+      <recent name="org.example.dto.request" />
+      <recent name="org.example.controller" />
       <recent name="org.example.exception" />
       <recent name="org.example.data.repository" />
-      <recent name="org.example.dto.request" />
-      <recent name="org.example.dto" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -135,39 +79,24 @@
       <recent name="org.example.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.LogisticServiceImplTest.testThatWhenCompanyCanSetUp2VechiclesAndIfIndAllVechicleOfCompanyCountIsTwo">
-    <configuration name="LogisticServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Spring Boot.Main">
+    <configuration name="CustomerServiceImplTest.testThatWhenCustomerTriesToFindDeliveryWithoutRegisteringThrowsAnException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="logisticApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.service.logistic.*" />
+          <option name="PATTERN" value="org.example.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.example.service.logistic" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.logistic.LogisticServiceImplTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LogisticServiceImplTest.testThatWhenCompanyCanSetUp2VechiclesAndIfIndAllVechicleOfCompanyCountIsTwo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="logisticApp" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.service.logistic.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example.service.logistic" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.logistic.LogisticServiceImplTest" />
-      <option name="METHOD_NAME" value="testThatWhenCompanyCanSetUp2VechiclesAndIfIndAllVechicleOfCompanyCountIsTwo" />
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.CustomerServiceImplTest" />
+      <option name="METHOD_NAME" value="testThatWhenCustomerTriesToFindDeliveryWithoutRegisteringThrowsAnException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LogisticServiceImplTest.testThatWhenCompanyLoginWithWrongCompanyNameThrowsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LogisticServiceImplTest.testThatLogisticCompanyCanUpdateDeliveryStatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="logisticApp" />
       <extension name="coverage">
         <pattern>
@@ -177,13 +106,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.example.service.logistic" />
       <option name="MAIN_CLASS_NAME" value="org.example.service.logistic.LogisticServiceImplTest" />
-      <option name="METHOD_NAME" value="testThatWhenCompanyLoginWithWrongCompanyNameThrowsException" />
+      <option name="METHOD_NAME" value="testThatLogisticCompanyCanUpdateDeliveryStatus" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LogisticServiceImplTest.testThatWhenCompanyRegisterCountIsOne" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LogisticServiceImplTest.testThatWhenLogistCompanyFindALLTransactionReturnListOfTransactionsOfDeliveryThatHasBeenDone" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="logisticApp" />
       <extension name="coverage">
         <pattern>
@@ -193,13 +122,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.example.service.logistic" />
       <option name="MAIN_CLASS_NAME" value="org.example.service.logistic.LogisticServiceImplTest" />
-      <option name="METHOD_NAME" value="testThatWhenCompanyRegisterCountIsOne" />
+      <option name="METHOD_NAME" value="testThatWhenLogistCompanyFindALLTransactionReturnListOfTransactionsOfDeliveryThatHasBeenDone" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LogisticServiceImplTest.testThatWhenUserLoginWithWrongPasswordThrowsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LogisticServiceImplTest.testThatWhenLogisticCompanySaveBikeInVechicleAndTheyDeleteBikeFromList_ListIs0" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="logisticApp" />
       <extension name="coverage">
         <pattern>
@@ -209,19 +138,32 @@
       </extension>
       <option name="PACKAGE_NAME" value="org.example.service.logistic" />
       <option name="MAIN_CLASS_NAME" value="org.example.service.logistic.LogisticServiceImplTest" />
-      <option name="METHOD_NAME" value="testThatWhenUserLoginWithWrongPasswordThrowsException" />
+      <option name="METHOD_NAME" value="testThatWhenLogisticCompanySaveBikeInVechicleAndTheyDeleteBikeFromList_ListIs0" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="logisticApp" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.Main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LogisticServiceImplTest.testThatWhenCompanyCanSetUp2VechiclesAndIfIndAllVechicleOfCompanyCountIsTwo" />
-        <item itemvalue="JUnit.LogisticServiceImplTest.testThatWhenCompanyLoginWithWrongCompanyNameThrowsException" />
-        <item itemvalue="JUnit.LogisticServiceImplTest" />
-        <item itemvalue="JUnit.LogisticServiceImplTest.testThatWhenCompanyRegisterCountIsOne" />
-        <item itemvalue="JUnit.LogisticServiceImplTest.testThatWhenUserLoginWithWrongPasswordThrowsException" />
+        <item itemvalue="Spring Boot.Main" />
+        <item itemvalue="JUnit.LogisticServiceImplTest.testThatLogisticCompanyCanUpdateDeliveryStatus" />
+        <item itemvalue="JUnit.LogisticServiceImplTest.testThatWhenLogistCompanyFindALLTransactionReturnListOfTransactionsOfDeliveryThatHasBeenDone" />
+        <item itemvalue="JUnit.LogisticServiceImplTest.testThatWhenLogisticCompanySaveBikeInVechicleAndTheyDeleteBikeFromList_ListIs0" />
+        <item itemvalue="JUnit.CustomerServiceImplTest.testThatWhenCustomerTriesToFindDeliveryWithoutRegisteringThrowsAnException" />
       </list>
     </recent_temporary>
   </component>
@@ -249,31 +191,29 @@
       <workItem from="1707184794191" duration="3283000" />
       <workItem from="1707189669489" duration="1418000" />
       <workItem from="1707192634407" duration="21225000" />
+      <workItem from="1707257902196" duration="2056000" />
+      <workItem from="1707292025779" duration="42048000" />
+      <workItem from="1707488541204" duration="894000" />
+      <workItem from="1707499521858" duration="15884000" />
+      <workItem from="1707537897108" duration="851000" />
+      <workItem from="1707538823682" duration="2044000" />
+      <workItem from="1707559857948" duration="46306000" />
+      <workItem from="1707709845705" duration="1739000" />
+      <workItem from="1707750235538" duration="26644000" />
+      <workItem from="1707988116081" duration="805000" />
+      <workItem from="1708032329087" duration="9613000" />
+      <workItem from="1708089972502" duration="691000" />
+      <workItem from="1708142020686" duration="6196000" />
+      <workItem from="1708375532187" duration="360000" />
+      <workItem from="1708394138433" duration="633000" />
+      <workItem from="1709096363521" duration="15765000" />
+      <workItem from="1709201251238" duration="141000" />
+      <workItem from="1709233554420" duration="577000" />
+      <workItem from="1709234441784" duration="2285000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/util/VerifyRequest.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/util/VerifyRequest.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/util/Mapper.java</url>
-          <line>50</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

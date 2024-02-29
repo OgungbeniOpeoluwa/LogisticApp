@@ -24,7 +24,7 @@ public class LogisticController {
             return new ResponseEntity<>(new ApiResponse(response,true), HttpStatus.CREATED);
         }
         catch(LogisticException logisticException){
-            response.setMessage(response.getMessage());
+            response.setMessage(logisticException.getMessage());
             return new ResponseEntity<>(new ApiResponse(response,false),HttpStatus.BAD_REQUEST);
         }
     }
