@@ -4,9 +4,9 @@ import org.example.data.model.*;
 import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.CheckPriceQuotationRequest;
 import org.example.dto.request.*;
+import org.example.data.CompanieDelivery;
 import org.example.exception.InvalidEmailException;
 import org.example.exception.InvalidPasswordException;
-import org.example.exception.InvalidPhoneNumberException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class Mapper {
@@ -65,6 +65,26 @@ public class Mapper {
         delivery.setPackageWeight(bookDeliveryRequest.getPackageWeight());
         return delivery;
     }
+    public static CompanieDelivery mapDelivery(Delivery delivery){
+        CompanieDelivery deliveries = new CompanieDelivery();
+        deliveries.setDeliveryStatus(delivery.getDeliveryStatus());
+        deliveries.setDeliveryPrice(delivery.getDeliveryPrice());
+        deliveries.setCompanyAmount(deliveries.getCompanyAmount());
+        deliveries.setRecieverName(delivery.getRecieverName());
+        deliveries.setRecieverPhoneNumber(deliveries.getRecieverPhoneNumber());
+        deliveries.setRecieverAddress(deliveries.getRecieverAddress());
+        deliveries.setBookingId(delivery.getBookingId());
+        deliveries.setPickUpAddress(delivery.getPickUpAddress());
+        deliveries.setPickUpPhoneNumber(delivery.getPickUpPhoneNumber());
+        deliveries.setPickUpUserName(deliveries.getPickUpUserName());
+        deliveries.setPackageWeight(delivery.getPackageWeight());
+        deliveries.setNameOfVechicle(delivery.getNameOfVechicle());
+        deliveries.setCustomerEmail(deliveries.getCustomerEmail());
+        deliveries.setTypeOfPackage(delivery.getTypeOfPackage());
+        deliveries.setLogisticCompany(delivery.getLogisticCompany());
+        return deliveries;
+
+    }
 
     public static LogisticCompany mapCompany(LogisticRegisterRequest logisticRegisterRequest){
         LogisticCompany logisticCompany = new LogisticCompany();
@@ -79,7 +99,7 @@ public class Mapper {
     }
     public static Vechicle mapVechicle(RegisterVehicleRequest request){
         Vechicle vechicle = new Vechicle();
-        vechicle.setVechicleType(request.getVehicleType());
+        vechicle.setVechicleType(VehicleType.valueOf(request.getVehicleType()));
         return vechicle;
     }
 

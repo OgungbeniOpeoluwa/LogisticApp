@@ -17,7 +17,6 @@ import org.example.service.email.EmailService;
 import org.example.service.admin.AdministratorService;
 import org.example.service.delivery.DeliveryService;
 import org.example.service.logistic.LogisticsService;
-import org.example.service.wallet.WalletService;
 import org.example.util.Mapper;
 import org.example.util.DistanceCalculation;
 import org.example.util.Verification;
@@ -36,8 +35,6 @@ public class CustomerServiceImpl implements CustomerService {
     CustomerRepository customerRepository;
     @Autowired
     EmailService emailService;
-    @Autowired
-    WalletService walletService;
     @Autowired
     AdministratorService administratorService;
     @Autowired
@@ -62,10 +59,6 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customers customer = Mapper.MapRegister(registerRequest);
         customerRepository.save(customer);
-        Wallet wallet = walletService.createWallet(customer,registerRequest.getEmail());
-        customer.setWallet(wallet);
-        customerRepository.save(customer);
-
 
       RegisterResponse response = new RegisterResponse("Registration completed");
         EmailRequest emailRequest = Mapper.emailRequest(registerRequest.getEmail(),
@@ -93,10 +86,6 @@ public class CustomerServiceImpl implements CustomerService {
         if(!checkPassword(customers.getEmail(),loginRequest.getPassword())) throw new InvalidLoginDetail("invalid login details");
         customers.setLoginStatus(true);
         customerRepository.save(customers);
-
-
-
-
     }
 
     @Override
@@ -130,29 +119,6 @@ public class CustomerServiceImpl implements CustomerService {
         return Double.parseDouble(format);
     }
 
-    @Override
-    public DepositMoneyResponse depositToWallet(DepositMoneyRequest depositMoneyRequest) {
-        userExist(depositMoneyRequest.getEmail());
-        if(!isLocked(depositMoneyRequest.getEmail()))throw new AppLockedException("Kindly login");
-        Customers customers = customerRepository.findByEmail(depositMoneyRequest.getEmail());
-        Wallet wallet = walletService.depositMoney(depositMoneyRequest.getAmount(),depositMoneyRequest.getEmail());
-        customers.setWallet(wallet);
-        DepositMoneyResponse depositMoneyResponse = new DepositMoneyResponse();
-        Account account = administratorService.getAccount ("Admin");
-        if(account == null)throw new AccountException("No Account is available");
-        depositMoneyResponse.setMessage(account);
-        administratorService.depositConfirmationEmail(depositMoneyRequest.getEmail(), depositMoneyRequest.getAmount());
-        customerRepository.save(customers);
-        return depositMoneyResponse;
-
-    }
-
-    @Override
-    public BigDecimal checkBalance(String email) {
-        userExist(email);
-        if(!isLocked(email))throw new AppLockedException("Kindly login");
-        return walletService.checkBalance(email);
-    }
 
     @Override
     public List<LogisticCompany> searchForAvailableLogistic() {
@@ -246,7 +212,7 @@ public class CustomerServiceImpl implements CustomerService {
     private static double calculatePrice(CheckPriceQuotationRequest address, double kilometer) {
         double format = Double.parseDouble(String.format("%.1f",kilometer));
         double price = 0;
-        for(TypeOfVehicle vehicle: TypeOfVehicle.values()){
+        for(VehicleType vehicle: VehicleType.values()){
             if(vehicle.name().equalsIgnoreCase(address.getTypeOfVehicle()) && kilometer > 0){
                 price = (format * vehicle.ratePerKm) + (address.getWeightOfPackage() * vehicle.ratePerWeight);
             } else if (vehicle.name().equalsIgnoreCase(address.getTypeOfVehicle()) && kilometer == 0){

@@ -1,13 +1,13 @@
 package org.example.service.logistic;
 
 import jakarta.transaction.Transactional;
-import org.example.data.model.Delivery;
 import org.example.data.model.Transaction;
 import org.example.data.model.Vechicle;
 import org.example.data.repository.CompanyRepository;
 import org.example.data.repository.VechicleRepository;
 import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.*;
+import org.example.data.CompanieDelivery;
 import org.example.exception.InvalidLoginDetail;
 import org.example.service.admin.AdministratorService;
 import org.example.service.customers.CustomerService;
@@ -159,8 +159,6 @@ class LogisticServiceImplTest {
         DepositMoneyRequest depositMoneyRequest = new DepositMoneyRequest();
         depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
         depositMoneyRequest.setAmount(60000);
-        customerService.depositToWallet(depositMoneyRequest);
-        administratorService.updateWallet(customersRegisterRequest.getEmail());
 
         BookDeliveryRequest bookDeliveryRequest = bookDelivery();
         String bookingId = customerService.bookDelivery(bookDeliveryRequest);
@@ -191,7 +189,7 @@ class LogisticServiceImplTest {
         deliveryStatusRequest.setDeliveryStatus("cancelled");
 
 
-        List<Delivery> companyDeliveries = logisticsService.searchBydeliveryStatus(deliveryStatusRequest);
+        List<CompanieDelivery> companyDeliveries = logisticsService.searchBydeliveryStatus(deliveryStatusRequest);
         assertEquals(1,companyDeliveries.size());
 
     }
@@ -237,8 +235,6 @@ class LogisticServiceImplTest {
         DepositMoneyRequest depositMoneyRequest = new DepositMoneyRequest();
         depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
         depositMoneyRequest.setAmount(60000);
-        customerService.depositToWallet(depositMoneyRequest);
-        administratorService.updateWallet(customersRegisterRequest.getEmail());
 
         BookDeliveryRequest bookDeliveryRequest = bookDelivery();
         String bookingId = customerService.bookDelivery(bookDeliveryRequest);
@@ -336,8 +332,6 @@ class LogisticServiceImplTest {
         DepositMoneyRequest depositMoneyRequest = new DepositMoneyRequest();
         depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
         depositMoneyRequest.setAmount(60000);
-        customerService.depositToWallet(depositMoneyRequest);
-        administratorService.updateWallet(customersRegisterRequest.getEmail());
 
         BookDeliveryRequest bookDeliveryRequest = bookDelivery();
         String bookingId = customerService.bookDelivery(bookDeliveryRequest);

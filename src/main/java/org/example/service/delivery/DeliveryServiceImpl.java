@@ -8,6 +8,7 @@ import org.example.data.repository.DeliveryRepository;
 import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.AcceptBookingRequest;
 import org.example.dto.response.BookingResponse;
+import org.example.data.CompanieDelivery;
 import org.example.exception.DeliveryException;
 import org.example.exception.InputException;
 import org.example.service.admin.AdministratorService;
@@ -81,9 +82,9 @@ public class DeliveryServiceImpl implements  DeliveryService{
     }
 
     @Override
-    public Delivery findLogisticDeliveryById(LogisticCompany logisticCompany, String bookingId) {
-        List <Delivery> deliveries = findAllLogisticDelivery(logisticCompany);
-        for(Delivery delivery:deliveries){
+    public CompanieDelivery findLogisticDeliveryById(LogisticCompany logisticCompany, String bookingId) {
+        List <CompanieDelivery> deliveries = findAllLogisticDelivery(logisticCompany);
+        for(CompanieDelivery delivery:deliveries){
             if(delivery.getBookingId().equals(bookingId)) {
                 return delivery;
             }
@@ -108,11 +109,13 @@ public class DeliveryServiceImpl implements  DeliveryService{
         return null;
     }
     @Override
-    public List<Delivery> findAllLogisticDelivery(LogisticCompany logisticCompany){
-        List <Delivery> deliveries = new ArrayList<>();
+    public List<CompanieDelivery> findAllLogisticDelivery(LogisticCompany logisticCompany){
+        List <CompanieDelivery> deliveries = new ArrayList<>();
         for(Delivery delivery:deliveryRepository.findAll()){
-            System.out.println(delivery);
-            if(delivery.getCompany().equals(logisticCompany))deliveries.add(delivery);
+            if(delivery.getCompany().equals(logisticCompany)) {
+                CompanieDelivery delivery1 = Mapper.mapDelivery(delivery);
+                deliveries.add(delivery1);
+            }
         }
         return deliveries;
 
@@ -133,13 +136,13 @@ public class DeliveryServiceImpl implements  DeliveryService{
         return null;    }
 
     @Override
-    public List<Delivery> searchDeliveryStatus(String companyName, String deliveryStatus) {
-        List<Delivery> deliveryByStatus = new ArrayList<>();
+    public List<CompanieDelivery> searchDeliveryStatus(String companyName, String deliveryStatus) {
+        List<CompanieDelivery> deliveryByStatus = new ArrayList<>();
        LogisticCompany logisticCompany = searchForLogisticCompany(companyName);
        if(logisticCompany == null)throw new DeliveryException("Company doesn't exist");
-       List<Delivery> deliveries = findAllLogisticDelivery(logisticCompany);
+       List<CompanieDelivery> deliveries = findAllLogisticDelivery(logisticCompany);
        if(deliveries.isEmpty())throw new DeliveryException("No deliveries available for this company");
-       for(Delivery delivery: deliveries){
+       for(CompanieDelivery delivery: deliveries){
            if(delivery.getDeliveryStatus().name().equalsIgnoreCase(deliveryStatus)){
                deliveryByStatus.add(delivery);
            }

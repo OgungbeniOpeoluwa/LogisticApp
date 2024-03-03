@@ -11,7 +11,6 @@ import java.util.List;
 public interface AdministratorService {
     void depositConfirmationEmail(String email, double amount);
 
-    void updateWallet(String email);
 
     void sendBookingEmail(BookingResponse bookingResponse,String email);
 

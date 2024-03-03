@@ -5,6 +5,7 @@ import org.example.data.model.LogisticCompany;
 import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.AcceptBookingRequest;
 import org.example.dto.response.BookingResponse;
+import org.example.data.CompanieDelivery;
 
 import java.util.List;
 
@@ -15,15 +16,15 @@ public interface DeliveryService {
 
     Delivery cancelDelivery(String bookingId, String customerEmail);
 
-    Delivery findLogisticDeliveryById(LogisticCompany logisticCompany, String bookingId);
+    CompanieDelivery findLogisticDeliveryById(LogisticCompany logisticCompany, String bookingId);
 
   //  void deleteDelivery(LogisticCompany logisticCompany, String bookingId);
 
     Delivery searchByDeliveryId(String bookingId, String customerEmail);
 
-    List<Delivery> findAllLogisticDelivery(LogisticCompany logisticCompany);
+    List<CompanieDelivery> findAllLogisticDelivery(LogisticCompany logisticCompany);
 
-    List<Delivery> searchDeliveryStatus(String companyName, String deliveryStatus);
+    List<CompanieDelivery> searchDeliveryStatus(String companyName, String deliveryStatus);
 
     String getOrderStatus(String bookingId);
 

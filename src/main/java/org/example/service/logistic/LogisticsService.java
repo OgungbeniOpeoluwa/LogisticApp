@@ -1,10 +1,10 @@
 package org.example.service.logistic;
 
-import org.example.data.model.Delivery;
 import org.example.data.model.LogisticCompany;
 import org.example.data.model.Transaction;
 import org.example.data.model.Vechicle;
 import org.example.dto.request.*;
+import org.example.data.CompanieDelivery;
 
 import java.util.List;
 
@@ -26,11 +26,11 @@ public interface LogisticsService {
     LogisticCompany checkLogisticCompany(String logisticCompanyEmail, String typeOfVechicle);
     LogisticCompany  resetLogistic(String companyName, String bookingId, String nameOfVechicle);
 
-    List<Delivery> findAllDeliveries(String email);
+    List<CompanieDelivery> findAllDeliveries(String email);
 
     void cancelDelivery(CancelBookingRequest cancelBookingRequest);
 
-    List<Delivery> searchBydeliveryStatus(SearchByDeliveryStatusRequest searchByDeliveryStatusRequest);
+    List<CompanieDelivery> searchBydeliveryStatus(SearchByDeliveryStatusRequest searchByDeliveryStatusRequest);
 
     void updateDeliveryStatus(UpdateDeliveryStatusRequest updateDeliveryStatusRequest);
 

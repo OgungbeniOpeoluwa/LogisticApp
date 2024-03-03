@@ -94,4 +94,18 @@ public class LogisticController {
            return new ResponseEntity<>(new ApiResponse(availabiltyResponse,false),HttpStatus.BAD_REQUEST);
         }
     }
+    @DeleteMapping("/deleteVechicle")
+    public ResponseEntity<?> deleteVechicle(DeleteVechicleRequest deleteVechicleRequest){
+        DeleteVechicleResponse vechicleResponse = new DeleteVechicleResponse();
+        try {
+            logisticsService.deleteVechicle(deleteVechicleRequest);
+            vechicleResponse.setMessage(deleteVechicleRequest.getVechicleType() + "Has successfully been deleted ");
+           return new ResponseEntity<>(new ApiResponse(vechicleResponse,true), HttpStatus.ACCEPTED);
+        }
+        catch(LogisticException logisticException){
+            vechicleResponse.setMessage(logisticException.getMessage());
+           return new ResponseEntity<>(new ApiResponse(vechicleResponse,false),HttpStatus.BAD_REQUEST);
+
+        }
+    }
 }

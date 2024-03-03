@@ -17,9 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,8 +31,6 @@ class CustomerServiceImplTest {
 
     @Autowired
     CustomerRepository customerRepository;
-    @Autowired
-    WalletRepository walletRepository;
     @Autowired
     AdministratorService administratorService;
     @Autowired
@@ -51,7 +47,6 @@ class CustomerServiceImplTest {
     @AfterEach
     public  void  deleteRepositoryAfterEach(){
         customerRepository.deleteAll();
-        walletRepository.deleteAll();
         companyRepository.deleteAll();
         deliveryRepository.deleteAll();
         vechicleRepository.deleteAll();
@@ -133,28 +128,6 @@ class CustomerServiceImplTest {
 
     }
     @Test
-    public void testThatWhenUserDeposit1500InsideTheirWalletWalletIncreaseFrom0To1500(){
-        customerService.register(customersRegisterRequest);
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(customersRegisterRequest.getEmail());
-        loginRequest.setPassword(customersRegisterRequest.getPassword());
-        customerService.login(loginRequest);
-
-        DepositMoneyRequest depositMoneyRequest = new DepositMoneyRequest();
-        depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
-        depositMoneyRequest.setAmount(1500.00);
-
-        customerService.depositToWallet(depositMoneyRequest);
-        Optional<Wallet> wallet = walletRepository.findByEmail(customersRegisterRequest.getEmail());
-        assertSame(WalletStatus.PENDING,wallet.get().getWalletStatus());
-
-        assertThrows(WalletException.class,()->customerService.checkBalance(customersRegisterRequest.getEmail()));
-        administratorService.updateWallet(customersRegisterRequest.getEmail());
-        assertSame(WalletStatus.AVAILABLE,walletRepository.findByEmail(customersRegisterRequest.getEmail()).get().getWalletStatus());
-        assertEquals(0,BigDecimal.valueOf(1500).compareTo(customerService.checkBalance(customersRegisterRequest.getEmail())));
-        assertSame(WalletStatus.AVAILABLE,walletRepository.findByEmail(customersRegisterRequest.getEmail()).get().getWalletStatus());
-    }
-    @Test
     public void testThatWhenUserSearchForAvailableLogisticCompanyReturnsCompanyThatIsOnline(){
         customerService.register(customersRegisterRequest);
         LoginRequest loginRequest = new LoginRequest();
@@ -214,9 +187,6 @@ class CustomerServiceImplTest {
         DepositMoneyRequest depositMoneyRequest = new DepositMoneyRequest();
         depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
         depositMoneyRequest.setAmount(20000);
-        customerService.depositToWallet(depositMoneyRequest);
-        administratorService.updateWallet(customersRegisterRequest.getEmail());
-
         BookDeliveryRequest bookDeliveryRequest = bookDelivery();
         String bookingId = customerService.bookDelivery(bookDeliveryRequest);
 
@@ -231,7 +201,6 @@ class CustomerServiceImplTest {
         List<Vechicle> availability = logisticsService.findAllVechicle("Vision five company");
         int availaibility = availability.get(0).getLimitPerDay();
         assertEquals(4,availaibility);
-        assertEquals(0,BigDecimal.valueOf(5380).compareTo(customerService.checkBalance(customersRegisterRequest.getEmail())));
     }
     @Test
     public void testThatWhenUserCancelRequestBookingStatusChangeToCanceledAndHerMoneyIsRefunded(){
@@ -263,8 +232,6 @@ class CustomerServiceImplTest {
         DepositMoneyRequest depositMoneyRequest = new DepositMoneyRequest();
         depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
         depositMoneyRequest.setAmount(20000);
-        customerService.depositToWallet(depositMoneyRequest);
-        administratorService.updateWallet(customersRegisterRequest.getEmail());
 
         BookDeliveryRequest bookDeliveryRequest = bookDelivery();
         String bookingId = customerService.bookDelivery(bookDeliveryRequest);
@@ -293,8 +260,6 @@ class CustomerServiceImplTest {
         DepositMoneyRequest depositMoneyRequest = new DepositMoneyRequest();
         depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
         depositMoneyRequest.setAmount(20000);
-        customerService.depositToWallet(depositMoneyRequest);
-        administratorService.updateWallet(customersRegisterRequest.getEmail());
 
         LogisticRegisterRequest registerRequest = getLogisticRegisterRequest();
         logisticsService.register(registerRequest);
@@ -336,8 +301,6 @@ class CustomerServiceImplTest {
         DepositMoneyRequest depositMoneyRequest = new DepositMoneyRequest();
         depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
         depositMoneyRequest.setAmount(20000);
-        customerService.depositToWallet(depositMoneyRequest);
-        administratorService.updateWallet(customersRegisterRequest.getEmail());
 
         assertThrows(NoDeliveryException.class,()->customerService.findAllDeliveries(customersRegisterRequest.getEmail()));
 

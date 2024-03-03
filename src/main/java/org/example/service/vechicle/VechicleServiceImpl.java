@@ -1,16 +1,14 @@
 package org.example.service.vechicle;
 
 import jakarta.transaction.Transactional;
-import org.example.data.model.Delivery;
 import org.example.data.model.LogisticCompany;
-import org.example.data.model.TypeOfVehicle;
+import org.example.data.model.VehicleType;
 import org.example.data.model.Vechicle;
 import org.example.data.repository.VechicleRepository;
 import org.example.dto.request.RegisterVehicleRequest;
 import org.example.dto.request.SetDayAvailabiltyRequest;
 import org.example.exception.DeliveryException;
 import org.example.exception.VechicleException;
-import org.example.service.delivery.DeliveryService;
 import org.example.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +26,7 @@ public class VechicleServiceImpl implements VechicleService {
     public void registerVechicle(LogisticCompany logisticCompany, RegisterVehicleRequest vechicleRequest) {
         List <Vechicle> userVechicle = findAllVechilcleBelongingToUser(logisticCompany);
             for (Vechicle vechicle : userVechicle) {
-                if (vechicle.getVechicleType().equals(vechicleRequest.getVehicleType()))
+                if (vechicle.getVechicleType().name().equals(vechicleRequest.getVehicleType()))
                     throw new VechicleException("Vehicle already exist");
             }
             if(!loopThroughTheEnumValueOfVechicleType(vechicleRequest.getVehicleType()))throw new VechicleException("vehicle type is not available");
@@ -50,7 +48,7 @@ public class VechicleServiceImpl implements VechicleService {
     public void deleteVechicle(String vechicleType, LogisticCompany logisticCompany) {
         List<Vechicle> allVechicle = findAllVechilcleBelongingToUser(logisticCompany);
         for(Vechicle vechicle:allVechicle){
-            if(vechicle.getVechicleType().equalsIgnoreCase(vechicleType)){
+            if(vechicle.getVechicleType().name().equalsIgnoreCase(vechicleType)){
                 vechicleRepository.delete(vechicle);
             }
         }
@@ -77,7 +75,7 @@ public class VechicleServiceImpl implements VechicleService {
         List<Vechicle> vechicles = findAllVechilcleBelongingToUser(logisticCompany);
         if(vechicles.isEmpty())throw new VechicleException("No vehicle register under company name");
         for (Vechicle vechicle : vechicles) {
-            if (vechicle.getVechicleType().equalsIgnoreCase(nameOfVechicle)) {
+            if (vechicle.getVechicleType().name().equalsIgnoreCase(nameOfVechicle)) {
                 int count = vechicle.getLimitPerDay() - 1;
                 vechicle.setLimitPerDay(count);
                 vechicleRepository.save(vechicle);
@@ -89,7 +87,7 @@ public class VechicleServiceImpl implements VechicleService {
         List<Vechicle> vechicles = findAllVechilcleBelongingToUser(logisticCompany);
         for (Vechicle vechicle: vechicles
              ) {
-            if(vechicle.getVechicleType().equalsIgnoreCase(vechicleType))return vechicle;
+            if(vechicle.getVechicleType().name().equalsIgnoreCase(vechicleType))return vechicle;
         }
         return null;
     }
@@ -99,7 +97,7 @@ public class VechicleServiceImpl implements VechicleService {
         List<Vechicle> vechicles = findAllVechilcleBelongingToUser(logisticCompany);
         if(vechicles.isEmpty())throw new VechicleException("No vehicle register under company name");
         for (Vechicle vechicle : vechicles) {
-            if (vechicle.getVechicleType().equalsIgnoreCase(nameOfVechicle)) {
+            if (vechicle.getVechicleType().name().equalsIgnoreCase(nameOfVechicle)) {
                 int count = vechicle.getLimitPerDay() + 1;
                 vechicle.setLimitPerDay(count);
                 vechicleRepository.save(vechicle);
@@ -113,7 +111,7 @@ public class VechicleServiceImpl implements VechicleService {
 
 
     private boolean loopThroughTheEnumValueOfVechicleType(String vehicleType){
-        for(TypeOfVehicle vehicle: TypeOfVehicle.values()){
+        for(VehicleType vehicle: VehicleType.values()){
             if(vehicle.name().equalsIgnoreCase(vehicleType))return true;
         }
         return false;

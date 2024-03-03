@@ -116,6 +116,18 @@ public class CustomerController {
             return new ResponseEntity<>(new ApiResponse(customerBookingHistory,false),HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/deliveryQuote")
+    public ResponseEntity<?> getDeliveryPrice(@RequestBody CheckPriceQuotationRequest request){
+        QuotationResponse deliveryPriceResponse  = new QuotationResponse();
+        try{
+            deliveryPriceResponse.setMessage(customerService.getQuote(request));
+            return new ResponseEntity<>(new ApiResponse(deliveryPriceResponse,true),HttpStatus.OK);
+        }
+        catch (LogisticException logisticException){
+            deliveryPriceResponse.setMessage(logisticException.getMessage());
+            return new ResponseEntity<>(new ApiResponse(deliveryPriceResponse,false),HttpStatus.BAD_REQUEST);
+        }
+    }
 
 
 
@@ -138,30 +150,6 @@ public class CustomerController {
 
 
 
-    //    @PostMapping("/deposit")
-//    public ResponseEntity<?> depositToWallet(@RequestBody DepositMoneyRequest depositMoneyRequest){
-//        DepositMoneyResponse depositMoneyResponse = new DepositMoneyResponse();
-//        try{
-//            depositMoneyResponse = customerService.depositToWallet(depositMoneyRequest);
-//            return new ResponseEntity<>(new ApiResponse(depositMoneyResponse,true),HttpStatus.ACCEPTED);
-//        }
-//        catch (LogisticException logisticException){
-//            depositMoneyResponse.setMessage(logisticException.getMessage());
-//            return new ResponseEntity<>(new ApiResponse(depositMoneyResponse,false),HttpStatus.BAD_REQUEST);
-//        }
-//    }
-//    @GetMapping("/balance/{email}")
-//    public ResponseEntity<?> getBalance(@PathVariable(name="email")String email){
-//        CheckBalanceResponse checkBalanceResponse = new CheckBalanceResponse();
-//        try{
-//            checkBalanceResponse.setMessage("your wallet balance is " +customerService.checkBalance(email));
-//            return new ResponseEntity<>(new ApiResponse(checkBalanceResponse,true),HttpStatus.FOUND);
-//        }
-//        catch (LogisticException exception){
-//            checkBalanceResponse.setMessage(exception.getMessage());
-//            return new ResponseEntity<>(new ApiResponse(checkBalanceResponse,false),HttpStatus.NOT_FOUND);
-//        }
-//    }
 
 
 }

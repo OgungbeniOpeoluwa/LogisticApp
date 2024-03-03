@@ -12,7 +12,6 @@ import org.example.dto.response.BookingResponse;
 import org.example.exception.UserExistException;
 import org.example.service.account.AccountService;
 import org.example.service.email.EmailService;
-import org.example.service.wallet.WalletService;
 import org.example.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +26,6 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Autowired
     EmailService emailService;
     @Autowired
-    WalletService walletService;
-    @Autowired
     AccountService accountService;
 
     @Override
@@ -41,17 +38,6 @@ public class AdministratorServiceImpl implements AdministratorService {
 
         EmailRequest emailRequest = Mapper.emailRequest(admin.getEmail(),title,description);
         emailService.send(emailRequest);
-
-    }
-
-    @Override
-    public void updateWallet(String email) {
-         walletService.updateWallet(email);
-         String title = "Update On Deposit";
-         String description ="Hello " +email+ " Your wallet has succesfully be credited,you can now check your balance";
-         EmailRequest emailRequest = Mapper.emailRequest(email,title,description);
-         emailService.send(emailRequest);
-
 
     }
 

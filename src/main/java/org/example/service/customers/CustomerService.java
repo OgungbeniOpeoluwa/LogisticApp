@@ -20,9 +20,6 @@ public interface CustomerService {
 
     double getQuote(CheckPriceQuotationRequest address);
 
-    DepositMoneyResponse depositToWallet(DepositMoneyRequest depositMoneyRequest);
-
-    BigDecimal checkBalance(String email);
 
     List<LogisticCompany> searchForAvailableLogistic();
 

@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.example.data.model.*;
 import org.example.data.repository.CompanyRepository;
 import org.example.dto.request.*;
+import org.example.data.CompanieDelivery;
 import org.example.exception.*;
 import org.example.service.admin.AdministratorService;
 import org.example.service.delivery.DeliveryService;
@@ -114,10 +115,10 @@ public class LogisticServiceImpl implements LogisticsService{
         if(logisticCompany == null)throw new LogisticException("Logistic company doesn't exist");
         List<Vechicle> allVechicle = vechicleService.findAllVechilcleBelongingToUser(logisticCompany);
         for(Vechicle vechicle: allVechicle) {
-            if (vechicle.getVechicleType().equalsIgnoreCase(typeOfVechicle) && vechicle.getLimitPerDay() == 0) {
+            if (vechicle.getVechicleType().name().equalsIgnoreCase(typeOfVechicle) && vechicle.getLimitPerDay() == 0) {
                 throw new LogisticException("Logistic company is currently not available");
             }
-            else if(vechicle.getVechicleType().equalsIgnoreCase(typeOfVechicle) && vechicle.getLimitPerDay() > 0){
+            else if(vechicle.getVechicleType().name().equalsIgnoreCase(typeOfVechicle) && vechicle.getLimitPerDay() > 0){
                 return logisticCompany;
             }
         }
@@ -135,7 +136,7 @@ public class LogisticServiceImpl implements LogisticsService{
     }
 
     @Override
-    public List<Delivery> findAllDeliveries(String companyName) {
+    public List<CompanieDelivery> findAllDeliveries(String companyName) {
         LogisticCompany logisticCompany = companyRepository.findByCompanyName(companyName);
         if(logisticCompany == null)throw new LogisticException("Logistic company doesn't exist");
         if(!logisticCompany.isLoginStatus())throw new AppLockedException("Kindly login");
@@ -154,7 +155,7 @@ public class LogisticServiceImpl implements LogisticsService{
     }
 
     @Override
-    public List<Delivery> searchBydeliveryStatus(SearchByDeliveryStatusRequest searchByDeliveryStatusRequest) {
+    public List<CompanieDelivery> searchBydeliveryStatus(SearchByDeliveryStatusRequest searchByDeliveryStatusRequest) {
         LogisticCompany logisticCompany = companyRepository.findByCompanyName(searchByDeliveryStatusRequest.getCompanyName());
         if(logisticCompany == null)throw new LogisticException("Logistic company doesn't exist");
         if(!logisticCompany.isLoginStatus())throw new AppLockedException("Kindly login");

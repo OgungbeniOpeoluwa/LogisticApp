@@ -17,7 +17,4 @@ public class Customers{
     private String address;
     private String email;
     private boolean isLoginStatus;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name ="Wallet_id")
-    private Wallet wallet;
 }
