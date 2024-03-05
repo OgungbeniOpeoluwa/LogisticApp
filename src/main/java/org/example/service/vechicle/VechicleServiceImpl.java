@@ -29,8 +29,9 @@ public class VechicleServiceImpl implements VechicleService {
                 if (vechicle.getVechicleType().name().equals(vechicleRequest.getVehicleType()))
                     throw new VechicleException("Vehicle already exist");
             }
-            if(!loopThroughTheEnumValueOfVechicleType(vechicleRequest.getVehicleType()))throw new VechicleException("vehicle type is not available");
-       Vechicle vehicles = Mapper.mapVechicle(vechicleRequest);
+            VehicleType status = loopThroughTheEnumValueOfVechicleType(vechicleRequest.getVehicleType());
+            if(status == null)throw new VechicleException("vehicle type is not available");
+       Vechicle vehicles = Mapper.mapVechicle(vechicleRequest,status);
        vehicles.setCompany(logisticCompany);
         vechicleRepository.save(vehicles);
 
@@ -110,10 +111,10 @@ public class VechicleServiceImpl implements VechicleService {
 
 
 
-    private boolean loopThroughTheEnumValueOfVechicleType(String vehicleType){
+    private VehicleType loopThroughTheEnumValueOfVechicleType(String vehicleType){
         for(VehicleType vehicle: VehicleType.values()){
-            if(vehicle.name().equalsIgnoreCase(vehicleType))return true;
+            if(vehicle.name().equalsIgnoreCase(vehicleType))return vehicle;
         }
-        return false;
+        return null;
     }
 }

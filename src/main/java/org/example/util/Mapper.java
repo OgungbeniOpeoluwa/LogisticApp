@@ -97,9 +97,9 @@ public class Mapper {
         logisticCompany.setCacNumber(logisticRegisterRequest.getCacNumber());
         return logisticCompany;
     }
-    public static Vechicle mapVechicle(RegisterVehicleRequest request){
+    public static Vechicle mapVechicle(RegisterVehicleRequest request, VehicleType status){
         Vechicle vechicle = new Vechicle();
-        vechicle.setVechicleType(VehicleType.valueOf(request.getVehicleType()));
+        vechicle.setVechicleType(status);
         return vechicle;
     }
 
