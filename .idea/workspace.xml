@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="223aecb8-8e03-43d3-a77a-eded97f7e9a9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/vechicle/VechicleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/vechicle/VechicleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/util/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/util/Mapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +32,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2av5qkiVZdOf3rBzvoLv6KEmMDN" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -209,7 +213,14 @@
       <workItem from="1709234441784" duration="12964000" />
       <workItem from="1709396764493" duration="5597000" />
       <workItem from="1709504010744" duration="11975000" />
-      <workItem from="1709597814144" duration="7041000" />
+      <workItem from="1709597814144" duration="8775000" />
+      <workItem from="1709907896683" duration="2124000" />
+      <workItem from="1711053058478" duration="339000" />
+      <workItem from="1711055881497" duration="1190000" />
+      <workItem from="1711247527175" duration="435000" />
+      <workItem from="1711265203780" duration="743000" />
+      <workItem from="1711541777697" duration="5162000" />
+      <workItem from="1711605026337" duration="6106000" />
     </task>
     <servers />
   </component>
