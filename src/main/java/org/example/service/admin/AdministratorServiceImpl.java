@@ -89,7 +89,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public void setUpAccount(AccountRequest accountRequest) {
         Administrator admin = administratorRepository.findByUsername(accountRequest.getUsername());
-        if(admin == null)throw new UserExistException("User doesn't exist");
+        if(admin == null)throw new UserExistException("UserConfig doesn't exist");
         accountService.setAccount(accountRequest,admin);
 
     }

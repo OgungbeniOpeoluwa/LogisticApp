@@ -151,17 +151,12 @@ class LogisticServiceImplTest {
         customersRegisterRequest.setPassword("Opemip@123");
         customerService.register(customersRegisterRequest);
 
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(customersRegisterRequest.getEmail());
-        loginRequest.setPassword(customersRegisterRequest.getPassword());
-        customerService.login(loginRequest);
-
         DepositMoneyRequest depositMoneyRequest = new DepositMoneyRequest();
         depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
         depositMoneyRequest.setAmount(60000);
 
         BookDeliveryRequest bookDeliveryRequest = bookDelivery();
-        String bookingId = customerService.bookDelivery(bookDeliveryRequest);
+        String bookingId = customerService.bookDelivery(bookDeliveryRequest).getMessage();
 
         AcceptBookingRequest acceptBookingRequest = new AcceptBookingRequest();
         acceptBookingRequest.setCompanyName(registerRequest.getCompanyName());
@@ -170,7 +165,7 @@ class LogisticServiceImplTest {
         logisticsService.responseToBookingRequest(acceptBookingRequest);
 
        BookDeliveryRequest bookDeliveryRequest2 = bookDelivery();
-        String bookId = customerService.bookDelivery(bookDeliveryRequest2);
+        String bookId = customerService.bookDelivery(bookDeliveryRequest2).getMessage();
 
         acceptBookingRequest.setCompanyName(registerRequest.getCompanyName());
         acceptBookingRequest.setBookingId(bookId);
@@ -227,17 +222,12 @@ class LogisticServiceImplTest {
         customersRegisterRequest.setPassword("Opemip@123");
         customerService.register(customersRegisterRequest);
 
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(customersRegisterRequest.getEmail());
-        loginRequest.setPassword(customersRegisterRequest.getPassword());
-        customerService.login(loginRequest);
-
         DepositMoneyRequest depositMoneyRequest = new DepositMoneyRequest();
         depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
         depositMoneyRequest.setAmount(60000);
 
         BookDeliveryRequest bookDeliveryRequest = bookDelivery();
-        String bookingId = customerService.bookDelivery(bookDeliveryRequest);
+        String bookingId = customerService.bookDelivery(bookDeliveryRequest).getMessage();
 
         AcceptBookingRequest acceptBookingRequest = new AcceptBookingRequest();
         acceptBookingRequest.setCompanyName(registerRequest.getCompanyName());
@@ -324,17 +314,12 @@ class LogisticServiceImplTest {
         customersRegisterRequest.setPassword("Opemip@123");
         customerService.register(customersRegisterRequest);
 
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(customersRegisterRequest.getEmail());
-        loginRequest.setPassword(customersRegisterRequest.getPassword());
-        customerService.login(loginRequest);
-
         DepositMoneyRequest depositMoneyRequest = new DepositMoneyRequest();
         depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
         depositMoneyRequest.setAmount(60000);
 
         BookDeliveryRequest bookDeliveryRequest = bookDelivery();
-        String bookingId = customerService.bookDelivery(bookDeliveryRequest);
+        String bookingId = customerService.bookDelivery(bookDeliveryRequest).getMessage();
 
         AcceptBookingRequest acceptBookingRequest = new AcceptBookingRequest();
         acceptBookingRequest.setCompanyName(registerRequest.getCompanyName());
@@ -343,7 +328,7 @@ class LogisticServiceImplTest {
         logisticsService.responseToBookingRequest(acceptBookingRequest);
 
         BookDeliveryRequest bookDeliveryRequest2 = bookDelivery();
-        String bookId = customerService.bookDelivery(bookDeliveryRequest2);
+        String bookId = customerService.bookDelivery(bookDeliveryRequest2).getMessage();
 
         acceptBookingRequest.setCompanyName(registerRequest.getCompanyName());
         acceptBookingRequest.setBookingId(bookId);

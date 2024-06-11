@@ -6,6 +6,7 @@ import org.example.data.repository.*;
 import org.example.dto.request.CheckPriceQuotationRequest;
 import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.*;
+import org.example.dto.response.ApiResponse;
 import org.example.exception.*;
 import org.example.service.admin.AdministratorService;
 import org.example.service.customers.CustomerService;
@@ -75,34 +76,9 @@ class CustomerServiceImplTest {
         assertEquals("Registration completed",customerService.register(customersRegisterRequest).getMessage());
     }
     @Test
-    public void testThatWhenUserLoginInWithWrongPasswordThrowsException(){
-        customerService.register(customersRegisterRequest);
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail("opeoluwaagnes@gmail.com");
-        loginRequest.setPassword("0pemip@23");
-        assertThrows(InvalidLoginDetail.class,()->customerService.login(loginRequest));
-    }
-    @Test
-    public void testThatWhenUserLoginInWithWrongEmailThrowsException(){
-        customerService.register(customersRegisterRequest);
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail("agnes@gmail.com");
-        loginRequest.setPassword("0pemip@123");
-        assertThrows(InvalidLoginDetail.class,()->customerService.login(loginRequest));
-    }
-    @Test
-    public void testThatWhenUserLoginWithNoInputThrowsException(){
-        customerService.register(customersRegisterRequest);
-        LoginRequest loginRequest = new LoginRequest();
-       assertThrows(InputException.class,()->customerService.login(loginRequest));
-    }
-    @Test
     public void testThatCustomersCanGetThePriceOfDeliveryBeforeBooking(){
         customerService.register(customersRegisterRequest);
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(customersRegisterRequest.getEmail());
-        loginRequest.setPassword(customersRegisterRequest.getPassword());
-        customerService.login(loginRequest);
+
         CheckPriceQuotationRequest address = new CheckPriceQuotationRequest();
         address.setPickUpStreet("19 igbobi road adesan");
         address.setDeliveryState("lagos state");
@@ -119,10 +95,6 @@ class CustomerServiceImplTest {
     @Test
     public void testThatWhenUserTriesToBookDeliveryWithInSufficientMoneyInWalletThrowsAnException(){
         customerService.register(customersRegisterRequest);
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(customersRegisterRequest.getEmail());
-        loginRequest.setPassword(customersRegisterRequest.getPassword());
-        customerService.login(loginRequest);
         BookDeliveryRequest bookDeliveryRequest = bookDelivery();
         assertThrows(InsufficientBalanceException.class,()->customerService.bookDelivery(bookDeliveryRequest));
 
@@ -130,10 +102,6 @@ class CustomerServiceImplTest {
     @Test
     public void testThatWhenUserSearchForAvailableLogisticCompanyReturnsCompanyThatIsOnline(){
         customerService.register(customersRegisterRequest);
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(customersRegisterRequest.getEmail());
-        loginRequest.setPassword(customersRegisterRequest.getPassword());
-        customerService.login(loginRequest);
 
         LogisticRegisterRequest registerRequest = getLogisticRegisterRequest();
         logisticsService.register(registerRequest);
@@ -152,18 +120,15 @@ class CustomerServiceImplTest {
         registerRequest2.setPhoneNumber("08152865402");
         logisticsService.register(registerRequest2);
 
-        List<LogisticCompany> availableLogisticCompany = customerService.searchForAvailableLogistic();
+        ApiResponse<List<LogisticCompany>> availableLogisticCompany = customerService.searchForAvailableLogistic();
         System.out.println(availableLogisticCompany);
-        assertEquals(1,availableLogisticCompany.size());
+        assertEquals(1,availableLogisticCompany.getMessage());
 
     }
     @Test
     public void testThatWhenCustomerBookDeliveryAndALogisticCompanyAvailabilityIs5ItReduceBy1AndAlsoMoneyIsDeductedFromCustomerWallet(){
         customerService.register(customersRegisterRequest);
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(customersRegisterRequest.getEmail());
-        loginRequest.setPassword(customersRegisterRequest.getPassword());
-        customerService.login(loginRequest);
+
 
         LogisticRegisterRequest registerRequest = getLogisticRegisterRequest();
         logisticsService.register(registerRequest);
@@ -188,12 +153,12 @@ class CustomerServiceImplTest {
         depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
         depositMoneyRequest.setAmount(20000);
         BookDeliveryRequest bookDeliveryRequest = bookDelivery();
-        String bookingId = customerService.bookDelivery(bookDeliveryRequest);
+        ApiResponse<?> bookingId = customerService.bookDelivery(bookDeliveryRequest);
 
 
         AcceptBookingRequest acceptBookingRequest = new AcceptBookingRequest();
         acceptBookingRequest.setCompanyName("Vision five company");
-        acceptBookingRequest.setBookingId(bookingId);
+        acceptBookingRequest.setBookingId(bookingId.getMessage().toString());
         acceptBookingRequest.setResponse("Accepted");
         logisticsService.responseToBookingRequest(acceptBookingRequest);
 
@@ -205,10 +170,7 @@ class CustomerServiceImplTest {
     @Test
     public void testThatWhenUserCancelRequestBookingStatusChangeToCanceledAndHerMoneyIsRefunded(){
         customerService.register(customersRegisterRequest);
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(customersRegisterRequest.getEmail());
-        loginRequest.setPassword(customersRegisterRequest.getPassword());
-        customerService.login(loginRequest);
+
 
         LogisticRegisterRequest registerRequest = getLogisticRegisterRequest();
         logisticsService.register(registerRequest);
@@ -234,28 +196,24 @@ class CustomerServiceImplTest {
         depositMoneyRequest.setAmount(20000);
 
         BookDeliveryRequest bookDeliveryRequest = bookDelivery();
-        String bookingId = customerService.bookDelivery(bookDeliveryRequest);
+        ApiResponse<?>bookingId = customerService.bookDelivery(bookDeliveryRequest);
 
 
         CustomerCancelBookingRequest cancelBookingRequest = new CustomerCancelBookingRequest();
-        cancelBookingRequest.setBookingId(bookingId);
+        cancelBookingRequest.setBookingId(bookingId.getMessage().toString());
         cancelBookingRequest.setReasonOnWhyBookingWasCancelled("Delay In Delivery");
         cancelBookingRequest.setCompanyName(registerRequest.getCompanyName());
         cancelBookingRequest.setCustomerEmail(customersRegisterRequest.getEmail());
         customerService.cancelBookedDelivery(cancelBookingRequest);
 
         TrackOrderRequest trackOrderRequest = new TrackOrderRequest();
-        trackOrderRequest.setBookingId(bookingId);
-        String statues = customerService.trackOrder(trackOrderRequest);
-        assertEquals("CANCELLED",statues);
+        trackOrderRequest.setBookingId(bookingId.getMessage().toString());
+        ApiResponse<?> statues = customerService.trackOrder(trackOrderRequest);
+        assertEquals("CANCELLED",statues.getMessage().toString());
     }
     @Test
     public void testThatCustomerCanFindDeliveryByDeliveryStatus(){
         customerService.register(customersRegisterRequest);
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(customersRegisterRequest.getEmail());
-        loginRequest.setPassword(customersRegisterRequest.getPassword());
-        customerService.login(loginRequest);
 
         DepositMoneyRequest depositMoneyRequest = new DepositMoneyRequest();
         depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
@@ -281,22 +239,18 @@ class CustomerServiceImplTest {
 
 
         BookDeliveryRequest bookDeliveryRequest = bookDelivery();
-        String bookingId = customerService.bookDelivery(bookDeliveryRequest);
+       ApiResponse <?> bookingId = customerService.bookDelivery(bookDeliveryRequest);
 
         FindDeliveryByStatus findDeliveryByStatus = new FindDeliveryByStatus();
         findDeliveryByStatus.setDeliveryStatus("Pending");
         findDeliveryByStatus.setEmail(customersRegisterRequest.getEmail());
 
-        List<Delivery> deliveries = customerService.searchByDeliveryStatus(findDeliveryByStatus);
-        assertEquals(1,deliveries.size());
+        ApiResponse<List<Delivery>> deliveries = customerService.searchByDeliveryStatus(findDeliveryByStatus);
+        assertEquals(1,deliveries.getMessage().size());
     }
     @Test
     public void testThatWhenCustomerTriesToFindDeliveryWithoutRegisteringThrowsAnException(){
         customerService.register(customersRegisterRequest);
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(customersRegisterRequest.getEmail());
-        loginRequest.setPassword(customersRegisterRequest.getPassword());
-        customerService.login(loginRequest);
 
         DepositMoneyRequest depositMoneyRequest = new DepositMoneyRequest();
         depositMoneyRequest.setEmail(customersRegisterRequest.getEmail());
@@ -309,10 +263,7 @@ class CustomerServiceImplTest {
     @Test
     public void testThatCustomerUpdateUpdateTheirNameFromOpeoluwaToShayo(){
         customerService.register(customersRegisterRequest);
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(customersRegisterRequest.getEmail());
-        loginRequest.setPassword(customersRegisterRequest.getPassword());
-        customerService.login(loginRequest);
+
 
         UpdateProfileRequest updateProfileRequest = new UpdateProfileRequest();
         updateProfileRequest.setName("Shayo");

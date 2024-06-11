@@ -5,36 +5,40 @@ import org.example.data.model.LogisticCompany;
 import org.example.dto.request.CheckPriceQuotationRequest;
 import org.example.dto.request.BookDeliveryRequest;
 import org.example.dto.request.*;
-import org.example.dto.response.DepositMoneyResponse;
+import org.example.dto.response.ApiResponse;
+import org.example.dto.response.LoginResponse;
 import org.example.dto.response.RegisterResponse;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public interface CustomerService {
     RegisterResponse register(CustomersRegisterRequest registerRequest);
+   ApiResponse <String> bookDelivery(BookDeliveryRequest bookDeliveryRequest);
 
-    void login(LoginRequest loginRequest);
-
-    String bookDelivery(BookDeliveryRequest bookDeliveryRequest);
-
-    double getQuote(CheckPriceQuotationRequest address);
+    ApiResponse<Double>getQuote(CheckPriceQuotationRequest address);
 
 
-    List<LogisticCompany> searchForAvailableLogistic();
+    ApiResponse<List<LogisticCompany>>searchForAvailableLogistic();
 
-    void cancelBookedDelivery(CustomerCancelBookingRequest cancelBookingRequest);
+    ApiResponse<?>cancelBookedDelivery(CustomerCancelBookingRequest cancelBookingRequest);
 
     Delivery findDeliveryById(FindABookedDeliveryRequest findABookedDeliveryRequest);
 
-    String trackOrder(TrackOrderRequest trackOrderRequest);
+    ApiResponse<?> trackOrder(TrackOrderRequest trackOrderRequest);
 
-    List<Delivery> searchByDeliveryStatus(FindDeliveryByStatus findDeliveryByStatus);
+    ApiResponse<List<Delivery>> searchByDeliveryStatus(FindDeliveryByStatus findDeliveryByStatus);
 
     List<Delivery> findAllDeliveries(String email);
 
 
+
+
+
     void updateProfile(UpdateProfileRequest updateProfileRequest);
 
-    void setUpProfile(SetUpProfileRequest setUpProfileRequest);
+    ApiResponse<?> setUpAddress(SetUpAddressRequest setUpProfileRequest);
+
+
 }

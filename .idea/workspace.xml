@@ -4,10 +4,52 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="223aecb8-8e03-43d3-a77a-eded97f7e9a9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="223aecb8-8e03-43d3-a77a-eded97f7e9a9" name="Changes" comment="docker">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/beanConfig/ConfigBean.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data/model/Address.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data/model/Roles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/data/repository/AddressRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/UserAuthRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/WalletRegisterRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/request/CustomerTemporary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/request/FundWalletRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/request/SetUpAddressRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/response/FundWalletResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/response/WalletRegisterResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/security/AppAuthenticationProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/security/UserConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/security/filter/UserAuthentication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/security/manager/AppAuthenticationManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/security/securityConfig/SecurityFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/AddressService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/LogisticAddressService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/wallet/WalletService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/wallet/WalletServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/util/GlobalMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/secret.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/example/service/WalletServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.env" beforeDir="false" afterPath="$PROJECT_DIR$/config.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data/model/Customers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/data/model/Customers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/data/repository/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/data/repository/CustomerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/request/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/request/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/request/SetUpProfileRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/request/UpdateProfileRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/request/UpdateProfileRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/response/ApiResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/response/ApiResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/response/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/response/LoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/admin/AdministratorServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/admin/AdministratorServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/customers/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/customers/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/customers/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/customers/CustomerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/logistic/LogisticServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/logistic/LogisticServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/logistic/LogisticsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/logistic/LogisticsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/util/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/util/Mapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/CustomerServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/CustomerServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/logistic/LogisticServiceImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/logistic/LogisticServiceImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/test.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +63,9 @@
         <option value="JUnit5 Test Class" />
         <option value="Interface" />
         <option value="package.json" />
-        <option value="Class" />
         <option value="editable-svg" />
+        <option value="Class" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -62,26 +105,34 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;beca8f138b28922da876769fd526c35e&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
 }</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="org.example.dto.response" />
       <recent name="org.example.dto.request" />
+      <recent name="org.example.dto.response" />
+      <recent name="org.example.data.model" />
       <recent name="org.example.controller" />
       <recent name="org.example.exception" />
-      <recent name="org.example.data.repository" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.example.service" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="org.example.service.logistic" />
       <recent name="org.example.service" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.Main">
-    <configuration name="CustomerServiceImplTest.testThatWhenCustomerTriesToFindDeliveryWithoutRegisteringThrowsAnException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Docker.Dockerfile">
+    <configuration name="WalletServiceTest.fundWallet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="logisticApp" />
       <extension name="coverage">
         <pattern>
@@ -90,81 +141,80 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.example.service" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.CustomerServiceImplTest" />
-      <option name="METHOD_NAME" value="testThatWhenCustomerTriesToFindDeliveryWithoutRegisteringThrowsAnException" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.WalletServiceTest" />
+      <option name="METHOD_NAME" value="fundWallet" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LogisticServiceImplTest.testThatLogisticCompanyCanUpdateDeliveryStatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WalletServiceTest.getWalletBalance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="logisticApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.service.logistic.*" />
+          <option name="PATTERN" value="org.example.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.example.service.logistic" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.logistic.LogisticServiceImplTest" />
-      <option name="METHOD_NAME" value="testThatLogisticCompanyCanUpdateDeliveryStatus" />
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.WalletServiceTest" />
+      <option name="METHOD_NAME" value="getWalletBalance" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LogisticServiceImplTest.testThatWhenLogistCompanyFindALLTransactionReturnListOfTransactionsOfDeliveryThatHasBeenDone" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WalletServiceTest.loginToWallet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="logisticApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.service.logistic.*" />
+          <option name="PATTERN" value="org.example.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.example.service.logistic" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.logistic.LogisticServiceImplTest" />
-      <option name="METHOD_NAME" value="testThatWhenLogistCompanyFindALLTransactionReturnListOfTransactionsOfDeliveryThatHasBeenDone" />
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.WalletServiceTest" />
+      <option name="METHOD_NAME" value="loginToWallet" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LogisticServiceImplTest.testThatWhenLogisticCompanySaveBikeInVechicleAndTheyDeleteBikeFromList_ListIs0" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WalletServiceTest.testCreateWallet" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="logisticApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.service.logistic.*" />
+          <option name="PATTERN" value="org.example.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.example.service.logistic" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.logistic.LogisticServiceImplTest" />
-      <option name="METHOD_NAME" value="testThatWhenLogisticCompanySaveBikeInVechicleAndTheyDeleteBikeFromList_ListIs0" />
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.WalletServiceTest" />
+      <option name="METHOD_NAME" value="testCreateWallet" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="logisticApp" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.Main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="Dockerfile" type="docker-deploy" factoryName="dockerfile" temporary="true" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="sourceFilePath" value="Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
+      <deployment type="dockerfile" />
+      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.Main" />
-        <item itemvalue="JUnit.LogisticServiceImplTest.testThatLogisticCompanyCanUpdateDeliveryStatus" />
-        <item itemvalue="JUnit.LogisticServiceImplTest.testThatWhenLogistCompanyFindALLTransactionReturnListOfTransactionsOfDeliveryThatHasBeenDone" />
-        <item itemvalue="JUnit.LogisticServiceImplTest.testThatWhenLogisticCompanySaveBikeInVechicleAndTheyDeleteBikeFromList_ListIs0" />
-        <item itemvalue="JUnit.CustomerServiceImplTest.testThatWhenCustomerTriesToFindDeliveryWithoutRegisteringThrowsAnException" />
+        <item itemvalue="Docker.Dockerfile" />
+        <item itemvalue="JUnit.WalletServiceTest.getWalletBalance" />
+        <item itemvalue="JUnit.WalletServiceTest.fundWallet" />
+        <item itemvalue="JUnit.WalletServiceTest.loginToWallet" />
+        <item itemvalue="JUnit.WalletServiceTest.testCreateWallet" />
       </list>
     </recent_temporary>
   </component>
@@ -220,11 +270,65 @@
       <workItem from="1711247527175" duration="435000" />
       <workItem from="1711265203780" duration="743000" />
       <workItem from="1711541777697" duration="5162000" />
-      <workItem from="1711605026337" duration="6106000" />
+      <workItem from="1711605026337" duration="12100000" />
+      <workItem from="1712912035875" duration="1188000" />
+      <workItem from="1712988481431" duration="595000" />
+      <workItem from="1712989524452" duration="592000" />
+      <workItem from="1713044630592" duration="2082000" />
+      <workItem from="1713190868485" duration="3168000" />
+      <workItem from="1714011454456" duration="53000" />
+      <workItem from="1714031518204" duration="6656000" />
+      <workItem from="1714202445300" duration="22668000" />
+      <workItem from="1714281750918" duration="24946000" />
+      <workItem from="1714540096024" duration="1162000" />
+      <workItem from="1714711770484" duration="17528000" />
+      <workItem from="1715379391057" duration="685000" />
+      <workItem from="1718111173866" duration="1883000" />
     </task>
+    <task id="LOCAL-00001" summary="corrected Readme file">
+      <option name="closed" value="true" />
+      <created>1711651566409</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1711651566410</updated>
+    </task>
+    <task id="LOCAL-00002" summary="docker">
+      <option name="closed" value="true" />
+      <created>1718112107306</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1718112107307</updated>
+    </task>
+    <task id="LOCAL-00003" summary="docker">
+      <option name="closed" value="true" />
+      <created>1718115992108</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1718115992108</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="corrected Readme file" />
+    <MESSAGE value="docker" />
+    <option name="LAST_COMMIT_MESSAGE" value="docker" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/org/example/service/WalletServiceTest.java</url>
+          <line>50</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

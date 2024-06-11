@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import com.mysql.cj.log.Log;
 import org.example.dto.request.*;
 import org.example.dto.response.*;
 import org.example.exception.LogisticException;
@@ -16,92 +15,59 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody CustomersRegisterRequest customersRegisterRequest){
-        RegisterResponse response = new RegisterResponse();
-        try{
-            response = customerService.register(customersRegisterRequest);
-            return new ResponseEntity<>(new ApiResponse(response,true), HttpStatus.ACCEPTED);
-        }
-        catch (LogisticException logisticException){
-            response.setMessage(logisticException.getMessage());
-            return  new ResponseEntity<>(new ApiResponse(response,false),HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<?> register(@RequestBody CustomersRegisterRequest request){
+        try {
+           return ResponseEntity.status(HttpStatus.ACCEPTED).body(new ApiResponse<RegisterResponse>(customerService.register(request), true));
 
-    }
-    @PostMapping("/login")
-    public ResponseEntity<?> login (@RequestBody LoginRequest loginRequest){
-        LoginResponse loginResponse = new LoginResponse();
-        try{
-            customerService.login(loginRequest);
-            loginResponse.setMessage("Login successful");
-            return new ResponseEntity<>(new ApiResponse(loginResponse,true),HttpStatus.OK);
-        }
-        catch(LogisticException logisticException){
-            loginResponse.setMessage(logisticException.getMessage());
-            return new ResponseEntity<>(new ApiResponse(loginResponse,true),HttpStatus.BAD_REQUEST);
+        }catch (LogisticException exception){
+          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<String>(exception.getMessage(),false));
         }
 
     }
     @PostMapping("/order")
-    public ResponseEntity<?> bookDelivery(@RequestBody BookDeliveryRequest bookDeliveryRequest){
-        BookDeliveryResponse bookingResponse = new BookDeliveryResponse();
+    public ResponseEntity<?> bookDelivery(@RequestBody BookDeliveryRequest deliveryRequest){
         try{
-            bookingResponse.setMessage("Your tracking id is " +customerService.bookDelivery(bookDeliveryRequest));
-            return new ResponseEntity<>(new ApiResponse(bookingResponse,true),HttpStatus.ACCEPTED);
+           return ResponseEntity.status(HttpStatus.OK).body(customerService.bookDelivery(deliveryRequest));
         }
         catch (LogisticException exception){
-            bookingResponse.setMessage(exception.getMessage());
-            return  new ResponseEntity<>(new ApiResponse(bookingResponse,false),HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(exception.getMessage(),false));
         }
     }
     @GetMapping("/trackOrder")
     public ResponseEntity<?> trackOrder(@RequestBody TrackOrderRequest trackOrderRequest){
-        TrackOrderResponse trackOrderResponse = new TrackOrderResponse();
         try{
-            trackOrderResponse.setMessage("You order is "+customerService.trackOrder(trackOrderRequest));
-            return new ResponseEntity<>(new ApiResponse(trackOrderResponse,true),HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body(customerService.trackOrder(trackOrderRequest));
         }
         catch(LogisticException logisticException){
-            trackOrderResponse.setMessage(logisticException.getMessage());
-            return new ResponseEntity<>(new ApiResponse(trackOrderResponse,false),HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(logisticException,false));
         }
     }
     @GetMapping("/availableCompany")
     public ResponseEntity<?> searchForAvailableCompany(){
-        AvailableLogisticCompany availableLogisticCompany = new AvailableLogisticCompany();
         try{
-            availableLogisticCompany.setMessage( customerService.searchForAvailableLogistic());
-            return new ResponseEntity<>(new ApiResponse(availableLogisticCompany,true),HttpStatus.FOUND);
+            return ResponseEntity.status(HttpStatus.OK).body(customerService.searchForAvailableLogistic());
         }
         catch(LogisticException logisticException){
-            availableLogisticCompany.setMessage(logisticException.getMessage());
-            return  new ResponseEntity<>(new ApiResponse(availableLogisticCompany,false),HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(logisticException.getMessage(),false));
         }
     }
 
     @GetMapping("/bookingHistoryByStatus")
     public ResponseEntity<?> getAllBookingByStatus(@RequestBody FindDeliveryByStatus findDeliveryByStatus){
-        FindDeliveryByStatusResponse findDeliveryByStatusResponse = new FindDeliveryByStatusResponse();
         try{
-            findDeliveryByStatusResponse.setMessage(customerService.searchByDeliveryStatus(findDeliveryByStatus));
-            return new ResponseEntity<>(new ApiResponse(findDeliveryByStatusResponse,true),HttpStatus.FOUND);
+            return ResponseEntity.status(HttpStatus.OK).body(customerService.searchByDeliveryStatus(findDeliveryByStatus));
         }
         catch (LogisticException logisticException){
-            findDeliveryByStatusResponse.setMessage(logisticException.getMessage());
-            return new ResponseEntity<>(new ApiResponse(findDeliveryByStatusResponse,false),HttpStatus.NOT_FOUND);
+           return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(logisticException.getMessage(),false));
         }
     }
     @PostMapping("/cancel")
     public  ResponseEntity<?> cancelDelivery(@RequestBody CustomerCancelBookingRequest cancelBookingRequest){
-        CancelBookingResponse cancel = new CancelBookingResponse();
         try{
-            customerService.cancelBookedDelivery(cancelBookingRequest);
-            cancel.setMessage("Your order has been cancelled");
-            return new ResponseEntity<>(new ApiResponse(cancel,true),HttpStatus.ACCEPTED);
+            return ResponseEntity.status(HttpStatus.OK).body(customerService.cancelBookedDelivery(cancelBookingRequest));
         }
         catch(LogisticException logisticException){
-            cancel.setMessage(logisticException.getMessage());
-           return new ResponseEntity<>(new ApiResponse(cancel,false),HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(logisticException.getMessage(),false));
         }
     }
     @GetMapping("/allHistory/{email}")
@@ -118,14 +84,11 @@ public class CustomerController {
     }
     @GetMapping("/deliveryQuote")
     public ResponseEntity<?> getDeliveryPrice(@RequestBody CheckPriceQuotationRequest request){
-        QuotationResponse deliveryPriceResponse  = new QuotationResponse();
         try{
-            deliveryPriceResponse.setMessage(customerService.getQuote(request));
-            return new ResponseEntity<>(new ApiResponse(deliveryPriceResponse,true),HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body(customerService.getQuote(request));
         }
         catch (LogisticException logisticException){
-            deliveryPriceResponse.setMessage(logisticException.getMessage());
-            return new ResponseEntity<>(new ApiResponse(deliveryPriceResponse,false),HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse<>(logisticException.getMessage(),false));
         }
     }
 

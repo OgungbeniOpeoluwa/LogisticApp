@@ -37,7 +37,7 @@ public class LogisticServiceImpl implements LogisticsService{
 
     @Override
     public void register(LogisticRegisterRequest registerRequest) {
-        if(userExist(registerRequest.getEmail()).isPresent())throw new UserExistException("User Exist");
+        if(userExist(registerRequest.getEmail()).isPresent())throw new UserExistException("UserConfig Exist");
         if(companyName(registerRequest.getCompanyName()))throw new UserExistException("Company Name already exist");
         if(!Verification.verifyEmail(registerRequest.getEmail()))throw new InvalidEmailException("Invalid email format");
         if(!Verification.verifyPassword(registerRequest.getPassword()))throw new InvalidPhoneNumberException("Invalid phone number");
@@ -126,7 +126,7 @@ public class LogisticServiceImpl implements LogisticsService{
     }
 
     @Override
-    public LogisticCompany resetLogistic(String companyName, String bookingId, String nameOfVechicle) {
+    public LogisticCompany updateLimitPerDay(String companyName, String bookingId, String nameOfVechicle) {
         LogisticCompany logisticCompany = companyRepository.findByCompanyName(companyName);
         if(logisticCompany == null) throw new LogisticException("Logistic company doesn't exist");
         Vechicle vechicle = vechicleService.addToLimit(logisticCompany,nameOfVechicle);
@@ -149,7 +149,7 @@ public class LogisticServiceImpl implements LogisticsService{
         if(logisticCompany == null)throw new LogisticException("Logistic company doesn't exist");
         if(!logisticCompany.isLoginStatus())throw new AppLockedException("Kindly login");
         Delivery delivery = deliveryService.cancelDelivery(cancelBookingRequest.getBookingId(), cancelBookingRequest.getCustomerEmail() );
-        resetLogistic(cancelBookingRequest.getCompanyName(), cancelBookingRequest.getBookingId(), delivery.getNameOfVechicle());
+        updateLimitPerDay(cancelBookingRequest.getCompanyName(), cancelBookingRequest.getBookingId(), delivery.getNameOfVechicle());
         administratorService.cancelBookingEmail(delivery.getCustomerEmail(),delivery.getBookingId(),cancelBookingRequest.getReasonForCancellation(),
                 delivery.getCustomerEmail(), delivery.getDeliveryPrice());
     }

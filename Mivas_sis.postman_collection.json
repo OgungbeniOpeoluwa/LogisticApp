@@ -1,0 +1,393 @@
+{
+	"info": {
+		"_postman_id": "a9077953-2d8f-4637-b4f9-0af73325af7c",
+		"name": "Mivas_sis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28213173",
+		"_collection_link": "https://cloudy-astronaut-163917.postman.co/workspace/enSOM-API-Documentation~87d5e1b8-cdfd-4586-90e8-8cf441518de2/collection/28213173-a9077953-2d8f-4637-b4f9-0af73325af7c?action=share&source=collection_link&creator=28213173"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "faculty",
+					"item": [
+						{
+							"name": "Create Faculty Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\" science and arts\",\r\n    \"mission_statement\":\"home for all\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/admins/faculty/create",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admins",
+										"faculty",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update faculty request",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":\"45163fda-38fa-49d6-901e-7b94a644f9d4\",\r\n    \"name\":\"research\",\r\n    \"vision_statement\":\"future is bright\",\r\n    \"mission_statement\":\"science is everything\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/admins/faculty/update",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admins",
+										"faculty",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "view faculty by id Request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/admins/faculty/?id=45163fda-38fa-49d6-901e-7b94a644f9d4",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admins",
+										"faculty",
+										""
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "45163fda-38fa-49d6-901e-7b94a644f9d4"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View All faculties Request",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"limit\":3,\r\n    \"offset\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/admins/faculty/faculties",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admins",
+										"faculty",
+										"faculties"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get faculty by name Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Delete faculty Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Department",
+					"item": [
+						{
+							"name": "Create department Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\":\"economics\",\r\n\t\"Description\":\"money\",\r\n\t\"Department_faculty\":\"d9f2f149-e873-4d83-9233-54b36cb5f9ba\",\r\n    \"department_degree\":\"77765282-1a2d-46f1-8749-c2cc55120a00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/admins/department/create",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admins",
+										"department",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View Department By Id Request",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/admins/department/?id=83aeca37-168d-4f4e-964f-62a9bcb7cf88",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admins",
+										"department",
+										""
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "83aeca37-168d-4f4e-964f-62a9bcb7cf88"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "View departments Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Update department Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Degree",
+					"item": [
+						{
+							"name": "Create Degree Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"science\",\r\n    \"faculty_id\":\"2cfe50b3-5a6e-477b-9762-31a22e11fb5d\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/admins/degree/create",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admins",
+										"degree",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Degree Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Cohort",
+					"item": [
+						{
+							"name": "Create cohort Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"cohort_month\":\"janurary\",\r\n    \"cohort_year\":2014\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/admins/cohort/create",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admins",
+										"cohort",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Cohort Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "View Cohort By Month Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "View Cohort By YearRequest",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/admins/cohort/2004",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admins",
+										"cohort",
+										"2004"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Cohort Request",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/admins/cohort/delete?id=0eaa22c9-e929-4179-ba26-c3367ceb45be",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"admins",
+										"cohort",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "0eaa22c9-e929-4179-ba26-c3367ceb45be"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get cohort Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admins/cohort/id?id=0eaa22c9-e929-4179-ba26-c3367ceb45be",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admins",
+								"cohort",
+								"id"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "0eaa22c9-e929-4179-ba26-c3367ceb45be"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

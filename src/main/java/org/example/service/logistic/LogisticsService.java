@@ -24,7 +24,7 @@ public interface LogisticsService {
     void setDayAvailability(SetDayAvailabiltyRequest availabiltyRequest);
 
     LogisticCompany checkLogisticCompany(String logisticCompanyEmail, String typeOfVechicle);
-    LogisticCompany  resetLogistic(String companyName, String bookingId, String nameOfVechicle);
+    LogisticCompany updateLimitPerDay(String companyName, String bookingId, String nameOfVechicle);
 
     List<CompanieDelivery> findAllDeliveries(String email);
 

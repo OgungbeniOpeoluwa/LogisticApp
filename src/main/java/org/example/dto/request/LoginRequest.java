@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class LoginRequest {
     @NotNull(message = "email should not be null")
-    private String email;
+    private String username;
     @NotNull(message ="Password should not be null")
     private String password;
 }

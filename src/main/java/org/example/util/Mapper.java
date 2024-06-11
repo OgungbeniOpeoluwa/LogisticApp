@@ -9,16 +9,23 @@ import org.example.exception.InvalidEmailException;
 import org.example.exception.InvalidPasswordException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Set;
+
+import static org.example.data.model.Roles.CUSTOMER;
+
 public class Mapper {
 
     public static Customers MapRegister(CustomersRegisterRequest request){
         if(!Verification.verifyPassword(request.getPassword()))throw new InvalidPasswordException("Weak password");
         if(!Verification.verifyEmail(request.getEmail()))throw new InvalidEmailException("Email not Valid");
-        Customers customers = new Customers();
-        customers.setEmail(request.getEmail());
+        Customers customer = new Customers();
+        customer.setEmail(request.getEmail());
         String encodePassword = encryptPassword(request.getPassword());
-        customers.setPassword(encodePassword);
-        return customers;
+        customer.setPassword(encodePassword);
+        Set<Roles> userRoles = customer.getUserRole();
+        userRoles.add(CUSTOMER);
+        customer.setUserRole(userRoles);
+        return customer;
 
     }
 
