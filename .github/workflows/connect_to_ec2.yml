@@ -51,7 +51,7 @@ jobs:
           sudo systemctl start docker
           sudo systemctl enable docker
           sudo usermod -aG docker $USER
-          docker login -u $DOCKER_USERNAME -p ${{ secrets.DOCKER_PASSWORD }}
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
           docker pull $DOCKER_USERNAME/$DOCKER_REPOSITORY:latest
           docker run -d -p 80:8080 $DOCKER_USERNAME/$DOCKER_REPOSITORY:latest
         EOF
