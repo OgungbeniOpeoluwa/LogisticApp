@@ -46,6 +46,11 @@ jobs:
         echo "$PRIVATE_KEY" > key_pair.pem
         chmod 600 key_pair.pem
         ssh -o StrictHostKeyChecking=no -i key_pair.pem $USER@$HOST << 'EOF'
+        sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo systemctl start docker
+          sudo systemctl enable docker
+          sudo usermod -aG docker $USER
           docker login -u $DOCKER_USERNAME -p ${{ secrets.DOCKER_PASSWORD }}
           docker pull $DOCKER_USERNAME/$DOCKER_REPOSITORY:latest
           docker run -d -p 80:8080 $DOCKER_USERNAME/$DOCKER_REPOSITORY:latest
