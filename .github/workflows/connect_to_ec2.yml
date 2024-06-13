@@ -43,7 +43,7 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_REPOSITORY: ${{ secrets.DOCKER_REPOSITORY }}
       run: |
-        echo "$EC2_PRIVATE_KEY" > key_pair.pem
+        echo "$PRIVATE_KEY" > key_pair.pem
         chmod 600 key_pair.pem
         ssh -o StrictHostKeyChecking=no -i key_pair.pem $USER@$HOST << 'EOF'
           docker login -u $DOCKER_USERNAME -p ${{ secrets.DOCKER_PASSWORD }}
